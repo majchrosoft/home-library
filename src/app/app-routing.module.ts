@@ -4,8 +4,8 @@ import { HeaderComponent } from './header/header.component';
 import { ItemFormComponent } from './item/item-form/item-form.component';
 
 const appRoutes: Routes = [
-  { path: 'item/add', component: ItemFormComponent },
-  { path: 'item', component: HeaderComponent }
+  { path: 'items/add', component: ItemFormComponent },
+  { path: 'items', component: HeaderComponent }
   // { path: '/item', pathMatch: 'full' }
 ];
 

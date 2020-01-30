@@ -1,17 +1,37 @@
 <form [formGroup]="form">
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Enter title"
+    <input type="text" class="form-control" id="title" placeholder="Enter title"
            formControlName="title">
   </div>
   <div class="form-group">
     <label for="author">Author</label>
-    <input type="text" class="form-control" id="author" aria-describedby="emailHelp" placeholder="Enter author"
+    <input type="text" class="form-control" id="author" placeholder="Enter author"
            formControlName="author">
   </div>
   <div class="form-group">
     <label for="type">Type</label>
-    <input type="text" class="form-control" id="type" aria-describedby="emailHelp" placeholder="Enter type"
-           formControlName="type">
+    <select class="form-control" id="type"
+            formControlName="type"
+    >
+      <option
+        *ngFor="let itemType of itemTypes;"
+        [value]="itemType"
+      >{{itemType}}
+      </option>
+    </select>
   </div>
+  <hr/>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="onAdd()"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+
 </form>

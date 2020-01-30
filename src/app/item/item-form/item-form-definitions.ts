@@ -13,7 +13,7 @@ export const enum itemTypes {
   Another = 'Another'
 }
 
-export const itemTypesArray: string[] = [
+export const itemTypesArray: itemTypes[] = [
   itemTypes.Book,
   itemTypes.Audio,
   itemTypes.Tape,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ItemFormDefinitions } from './item-form-definitions';
+import { ItemFormDefinitions, itemTypes, itemTypesArray } from './item-form-definitions';
 
 @Component({
   selector: 'app-item-form',
@@ -10,14 +10,20 @@ import { ItemFormDefinitions } from './item-form-definitions';
 export class ItemFormComponent implements OnInit {
 
   form: FormGroup;
+  itemTypes: itemTypes[];
+
+  onAdd() {
+    console.log(this.form.getRawValue());
+  }
 
   constructor(
-    private itemFormDefinitions: ItemFormDefinitions
+    private itemFormDefinitions: ItemFormDefinitions,
   ) {
   }
 
   ngOnInit() {
     this.form = this.itemFormDefinitions.create();
+    this.itemTypes = itemTypesArray;
   }
 
 }
