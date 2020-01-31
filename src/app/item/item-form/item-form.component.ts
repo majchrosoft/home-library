@@ -8,6 +8,7 @@ import {
   itemTypesArray,
 } from './item-form-definition';
 import { formControlErrorMessages } from '../../shared/form-control-error-messages';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item-form',
@@ -16,6 +17,7 @@ import { formControlErrorMessages } from '../../shared/form-control-error-messag
 })
 export class ItemFormComponent implements OnInit {
 
+  form: FormGroup;
   formDefinition: ItemFormDefinition;
   itemTypes: itemTypes[];
   itemQualityScaleList: itemQualityScale[];
@@ -27,10 +29,13 @@ export class ItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.formDefinition = new ItemFormDefinition();
+    this.form = this.formDefinition.form();
     this.itemTypes = itemTypesArray;
     this.itemQualityScaleList = itemQualityScaleList;
   }
 
-  public formControlErrorMessages = formControlErrorMessages;
+  public formControlErrorMessages(formControlName): string[] {
+    return formControlErrorMessages(this.formDefinition, formControlName);
+  }
 
 }

@@ -4,6 +4,7 @@ import { globalValidatorErrorMessages } from './globalValidatorErrorMessages';
 import { throwError } from 'rxjs';
 import * as _ from 'lodash';
 import { FormDefinition } from './FormDefinition';
+import has = Reflect.has;
 
 export function formControlErrorMessages(
   formDefinition: FormDefinition,
@@ -17,21 +18,21 @@ export function formControlErrorMessages(
   ) {
     return [];
   }
+
   return _.keys(formControl.errors).map(function(errorKey) {
 
     return (() => {
-      if (
-        !formDefinition.validatorErrorMessages().hasOwnProperty(formControlName)
-        &&
-        !formDefinition.validatorErrorMessages()[formControlName].hasOwnProperty(errorKey)
-        &&
-        !globalValidatorErrorMessages.hasOwnProperty(errorKey)
-      ) {
-        throwError('definition of validation message for errorKey ' + errorKey + ' missing');
-      }
 
-      return formDefinition.validatorErrorMessages()[formControlName][errorKey] ||
-        globalValidatorErrorMessages[errorKey];
+      let formErrorMessages = formDefinition.validatorErrorMessages();
+
+      let errorsFromFormErrorMessages =
+        formErrorMessages.hasOwnProperty('formControlName') &&
+        formErrorMessages[formControlName].hasOwnProperty(errorKey) &&
+        formErrorMessages[formControlName][errorKey];
+
+      if (!errorsFromFormErrorMessages) {
+        return globalValidatorErrorMessages[errorKey];
+      }
 
     })();
   });

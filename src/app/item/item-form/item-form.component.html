@@ -1,11 +1,11 @@
-<form [formGroup]="formDefinition.form()">
+<form [formGroup]="form">
   <div class="form-group">
     <label for="isbn">ISBN</label>
     <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
            formControlName="isbn">
 
     <app-form-message-error
-      [errors]="formControlErrorMessages(formDefinition, 'isbn')"
+      [errors]="formControlErrorMessages( 'isbn')"
     ></app-form-message-error>
 
   </div>
@@ -15,7 +15,7 @@
            formControlName="title">
 
     <app-form-message-error
-      [errors]="formControlErrorMessages(formDefinition, 'title')"
+      [errors]="formControlErrorMessages( 'title')"
     ></app-form-message-error>
   </div>
   <div class="form-group">
@@ -23,7 +23,7 @@
     <input type="text" class="form-control" id="author" placeholder="Enter author"
            formControlName="author">
     <app-form-message-error
-      [errors]="formControlErrorMessages(formDefinition, 'author')"
+      [errors]="formControlErrorMessages( 'author')"
     ></app-form-message-error>
 
   </div>
@@ -38,7 +38,7 @@
       </option>
     </select>
     <app-form-message-error
-      [errors]="formControlErrorMessages(formDefinition, 'type')"
+      [errors]="formControlErrorMessages( 'type')"
     ></app-form-message-error>
   </div>
   <div class="form-group">
@@ -53,7 +53,7 @@
       </option>
     </select>
     <app-form-message-error
-      [errors]="formControlErrorMessages(formDefinition, 'quality')"
+      [errors]="formControlErrorMessages( 'quality')"
     ></app-form-message-error>
   </div>
   <hr/>
