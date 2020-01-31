@@ -13,11 +13,18 @@
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" placeholder="Enter title"
            formControlName="title">
+
+    <app-form-message-error
+      [errors]="formControlErrorMessages(formDefinition, 'title')"
+    ></app-form-message-error>
   </div>
   <div class="form-group">
     <label for="author">Author</label>
     <input type="text" class="form-control" id="author" placeholder="Enter author"
            formControlName="author">
+    <app-form-message-error
+      [errors]="formControlErrorMessages(formDefinition, 'author')"
+    ></app-form-message-error>
 
   </div>
   <div class="form-group">
@@ -30,6 +37,9 @@
       >{{itemType}}
       </option>
     </select>
+    <app-form-message-error
+      [errors]="formControlErrorMessages(formDefinition, 'type')"
+    ></app-form-message-error>
   </div>
   <div class="form-group">
     <label for="quality">Quality</label>
@@ -42,6 +52,9 @@
       >{{itemQualityScaleItem}}
       </option>
     </select>
+    <app-form-message-error
+      [errors]="formControlErrorMessages(formDefinition, 'quality')"
+    ></app-form-message-error>
   </div>
   <hr/>
   <div class="form-group">
