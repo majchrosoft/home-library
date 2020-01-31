@@ -1,5 +1,15 @@
 <form [formGroup]="form">
   <div class="form-group">
+    <label for="isbn">ISBN</label>
+    <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
+           formControlName="isbn">
+
+    <app-form-message-error *ngFor="let isbnErrorMessage of isbnErrorMessages()"
+                            [message]="isbnErrorMessage"
+    ></app-form-message-error>
+
+  </div>
+  <div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" placeholder="Enter title"
            formControlName="title">
@@ -21,10 +31,23 @@
       </option>
     </select>
   </div>
+  <div class="form-group">
+    <label for="quality">Quality</label>
+    <select class="form-control" id="quality"
+            formControlName="quality"
+    >
+      <option
+        *ngFor="let itemQualityScaleItem of itemQualityScaleList;"
+        [value]="itemQualityScaleItem"
+      >{{itemQualityScaleItem}}
+      </option>
+    </select>
+  </div>
   <hr/>
   <div class="form-group">
     <div class="col-xs-12">
       <button
+        *ngIf="!isEdit"
         type="button"
         class="btn btn-success"
         (click)="onAdd()"

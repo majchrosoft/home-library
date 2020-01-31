@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ItemComponent } from './item/item.component';
 import { ItemFormComponent } from './item/item-form/item-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
