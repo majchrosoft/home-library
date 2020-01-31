@@ -26,13 +26,15 @@ export function formControlErrorMessages(
       let formErrorMessages = formDefinition.validatorErrorMessages();
 
       let errorsFromFormErrorMessages =
-        formErrorMessages.hasOwnProperty('formControlName') &&
+        formErrorMessages.hasOwnProperty(formControlName) &&
         formErrorMessages[formControlName].hasOwnProperty(errorKey) &&
         formErrorMessages[formControlName][errorKey];
 
       if (!errorsFromFormErrorMessages) {
         return globalValidatorErrorMessages[errorKey];
       }
+
+      return errorsFromFormErrorMessages;
 
     })();
   });
