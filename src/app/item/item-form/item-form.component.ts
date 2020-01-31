@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import * as _ from 'lodash';
+
 import {
-  isbnErrorMessages,
   ItemFormDefinitions,
   itemQualityScale,
   itemQualityScaleList,
   itemTypes,
-  itemTypesArray, validatorErrorMessages
+  itemTypesArray,
+  validatorErrorMessages
 } from './item-form-definitions';
+import { isObject } from 'util';
 
 @Component({
   selector: 'app-item-form',
@@ -20,7 +23,6 @@ export class ItemFormComponent implements OnInit {
   itemTypes: itemTypes[];
   itemQualityScaleList: itemQualityScale[];
   isEdit: boolean = false;
-  validatorErrorMessages: any[] = validatorErrorMessages;
 
   onAdd() {
     console.log(this.form.getRawValue());
@@ -41,22 +43,33 @@ export class ItemFormComponent implements OnInit {
 
   }
 
-  private isbnErrorMessages(): string[] {
-    //@todo restruct to array then map remove local msgs;
-    let msgs = [];
-    let isbnErrors =
-      this.form.get('isbn').touched &&
-      this.form.get('isbn').errors;
+  private errorMessagesOfFormControl(formControlName: string): string[] {
 
-    for (let error in isbnErrors) {
-      if (!isbnErrors.hasOwnProperty(error)) {
-        continue;
-      }
+    let formControl: AbstractControl = this.form.get(formControlName);
 
-      msgs.push(isbnErrorMessages[error]);
-
+    if (
+      !formControl.touched
+      ||
+      !isObject(formControl.errors)
+    ) {
+      return [];
     }
-    return msgs;
+    return _.keys(formControl.errors).map(function(errorKey) {
+
+      return (() => {
+        if (
+          !validatorErrorMessages.hasOwnProperty(formControlName)
+          &&
+          !validatorErrorMessages[formControlName].hasOwnProperty(errorKey)
+        ) {
+          return [];
+        }
+        return validatorErrorMessages[formControlName][errorKey];
+
+      })();
+      // return errorMessages(formControlName, errorKey, customErrorDefinitions);
+    });
+
 
   }
 

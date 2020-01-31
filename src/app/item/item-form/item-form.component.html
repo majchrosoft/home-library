@@ -4,7 +4,7 @@
     <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
            formControlName="isbn">
 
-    <app-form-message-error *ngFor="let isbnErrorMessage of isbnErrorMessages()"
+    <app-form-message-error *ngFor="let isbnErrorMessage of errorMessagesOfFormControl('isbn')"
                             [message]="isbnErrorMessage"
     ></app-form-message-error>
 

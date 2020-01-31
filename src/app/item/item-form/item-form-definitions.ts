@@ -42,23 +42,12 @@ export const itemQualityScaleList: itemQualityScale[] = [
 ];
 
 
-export const isbnErrorMessages = {
-  'required': 'The isbn field is required',
-  'pattern': 'The isbn must be numeric'
-}
-
-export const validatorErrorMessages: any[] = [
-  (
-    form: FormGroup,
-    controlFormName: string,
-  ): string | null => {
-    if (form.get(controlFormName).errors['required']) {
-      return 'The field is required';
-    } else {
-      return null;
-    }
-  },
-];
+export const validatorErrorMessages = {
+  'isbn': {
+    'required': 'The isbn field is required',
+    'pattern': 'The isbn must be numeric'
+  }
+};
 
 
 const controls = {
