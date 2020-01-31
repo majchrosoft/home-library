@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import * as _ from 'lodash';
 
 import {
-  ItemFormDefinitions,
+  ItemFormDefinition,
   itemQualityScale,
   itemQualityScaleList,
   itemTypes,
   itemTypesArray,
-  validatorErrorMessages
-} from './item-form-definitions';
-import { isObject } from 'util';
+} from './item-form-definition';
+import { formControlErrorMessages } from '../../shared/form-control-error-messages';
 
 @Component({
   selector: 'app-item-form',
@@ -19,58 +16,21 @@ import { isObject } from 'util';
 })
 export class ItemFormComponent implements OnInit {
 
-  form: FormGroup;
+  formDefinition: ItemFormDefinition;
   itemTypes: itemTypes[];
   itemQualityScaleList: itemQualityScale[];
   isEdit: boolean = false;
 
   onAdd() {
-    console.log(this.form.getRawValue());
-  }
-
-  constructor(
-    private itemFormDefinitions: ItemFormDefinitions,
-  ) {
+    console.log(this.formDefinition.form().getRawValue());
   }
 
   ngOnInit() {
-    this.form = this.itemFormDefinitions.create();
-    console.log(this.form);
+    this.formDefinition = new ItemFormDefinition();
     this.itemTypes = itemTypesArray;
     this.itemQualityScaleList = itemQualityScaleList;
-
-    console.log(this.form.get('isbn').errors);
-
   }
 
-  private errorMessagesOfFormControl(formControlName: string): string[] {
-
-    let formControl: AbstractControl = this.form.get(formControlName);
-
-    if (
-      !formControl.touched
-      ||
-      !isObject(formControl.errors)
-    ) {
-      return [];
-    }
-    return _.keys(formControl.errors).map(function(errorKey) {
-
-      return (() => {
-        if (
-          !validatorErrorMessages.hasOwnProperty(formControlName)
-          &&
-          !validatorErrorMessages[formControlName].hasOwnProperty(errorKey)
-        ) {
-          return [];
-        }
-        return validatorErrorMessages[formControlName][errorKey];
-
-      })();
-      // return errorMessages(formControlName, errorKey, customErrorDefinitions);
-    });
-
-
-  }
+  public formControlErrorMessages = formControlErrorMessages;
 
 }

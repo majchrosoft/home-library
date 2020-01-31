@@ -1,5 +1,8 @@
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Injectable } from '@angular/core';
+import { isbnRegex } from '../../../core/regexp/IsbnRegex';
+import * as _ from 'lodash';
+import { FormDefinition } from '../../shared/FormDefinition';
 
 export const enum itemTypes {
   Book = 'Book',
@@ -42,16 +45,18 @@ export const itemQualityScaleList: itemQualityScale[] = [
 ];
 
 
-export const validatorErrorMessages = {
+const validatorErrorMessages = {
   'isbn': {
-    'required': 'The isbn field is required',
-    'pattern': 'The isbn must be numeric'
+    'pattern': 'Please enter valid ISBN number'
   }
 };
 
 
-const controls = {
-  isbn: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+export const controls = {
+  isbn: new FormControl('', [
+    Validators.required,
+    Validators.pattern(isbnRegex)
+  ]),
   quality: new FormControl(itemQualityScale.Good, [Validators.required, Validators.pattern('^[0-9]*$')]),
   title: new FormControl('', Validators.required),
   description: new FormControl('', Validators.required),
@@ -60,11 +65,18 @@ const controls = {
   shelf: new FormControl('', Validators.required),
 };
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ItemFormDefinitions {
-  create(): FormGroup {
-    return new FormGroup(controls)
+export class ItemFormDefinition implements FormDefinition {
+
+  private formGroup: FormGroup | null = null;
+
+  public form(): FormGroup {
+    if (_.isNull(this.formGroup)) {
+      this.formGroup = new FormGroup(controls);
+    }
+    return this.formGroup;
+  }
+
+  validatorErrorMessages() {
+    return validatorErrorMessages;
   }
 }

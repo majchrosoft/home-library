@@ -1,11 +1,11 @@
-<form [formGroup]="form">
+<form [formGroup]="formDefinition.form()">
   <div class="form-group">
     <label for="isbn">ISBN</label>
     <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
            formControlName="isbn">
 
-    <app-form-message-error *ngFor="let isbnErrorMessage of errorMessagesOfFormControl('isbn')"
-                            [message]="isbnErrorMessage"
+    <app-form-message-error
+      [errors]="formControlErrorMessages(formDefinition, 'isbn')"
     ></app-form-message-error>
 
   </div>
@@ -18,12 +18,12 @@
     <label for="author">Author</label>
     <input type="text" class="form-control" id="author" placeholder="Enter author"
            formControlName="author">
+
   </div>
   <div class="form-group">
     <label for="type">Type</label>
     <select class="form-control" id="type"
-            formControlName="type"
-    >
+            formControlName="type">
       <option
         *ngFor="let itemType of itemTypes;"
         [value]="itemType"

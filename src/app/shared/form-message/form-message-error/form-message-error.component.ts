@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-form-message-error',
   templateUrl: './form-message-error.component.html',
@@ -7,12 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FormMessageErrorComponent implements OnInit {
 
+  @Input('errors') public errors: any[];
+
   constructor() {
   }
 
-  @Input('message') message: string;
 
   ngOnInit() {
   }
+
 
 }
