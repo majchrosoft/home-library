@@ -59,6 +59,7 @@ export const controls = {
   ]),
   quality: new FormControl(itemQualityScale.Good, [Validators.required, Validators.pattern('^[0-9]*$')]),
   title: new FormControl('', Validators.required),
+  customId: new FormControl(''),
   description: new FormControl('', Validators.required),
   author: new FormControl('', Validators.required),
   type: new FormControl(itemTypes.Book, Validators.required),

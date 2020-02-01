@@ -21,6 +21,8 @@ export class ItemFormComponent implements OnInit {
   formDefinition: ItemFormDefinition;
   itemTypes: itemTypes[];
   itemQualityScaleList: itemQualityScale[];
+  shelves: string[];
+  shelveNames: string[];
   isEdit: boolean = false;
 
   onAdd() {
