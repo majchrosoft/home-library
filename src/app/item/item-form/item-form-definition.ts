@@ -78,10 +78,7 @@ let defaultValues: formValues = {
 
 export function controls(values: formValues) {
   return {
-    isbn: new FormControl(values.isbn, [
-      Validators.required,
-      Validators.pattern(isbnRegex)
-    ]),
+    isbn: new FormControl(values.isbn, Validators.pattern(isbnRegex)),
     quality: new FormControl(values.quality, [Validators.required, Validators.pattern('^[0-9]*$')]),
     title: new FormControl(values.title, Validators.required),
     customId: new FormControl(values.customId),
