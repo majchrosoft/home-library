@@ -11,9 +11,11 @@ import { formControlErrorMessages } from '../../shared/form-control-error-messag
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { isNull } from 'util';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
+import { Item } from '../item.model';
+import { mapToId } from '../../shared/route-params-helpers';
+import { reduceItemStateToEntity } from '../../shared/reducer-helpers';
 
 @Component({
   selector: 'app-item-form',
@@ -29,7 +31,7 @@ export class ItemFormComponent implements OnInit {
   shelves: string[];
   shelveNames: string[];
   isEdit: boolean = false;
-  id: string | null;
+  item: Item | null;
 
   constructor(
     private store: Store<AppState>,
@@ -39,7 +41,7 @@ export class ItemFormComponent implements OnInit {
 
   }
 
-  onAdd() {
+  onSubmit() {
     console.log(this.formDefinition.form().getRawValue());
   }
 
@@ -49,7 +51,7 @@ export class ItemFormComponent implements OnInit {
     this.itemTypes = itemTypesArray;
     this.itemQualityScaleList = itemQualityScaleList;
 
-    this.subscribeToRouteParams();
+    this.initForm();
 
 
   }
@@ -66,26 +68,23 @@ export class ItemFormComponent implements OnInit {
    * @todo fatalError
    * propably bad call of subscribe method
    */
-  private subscribeToRouteParams() {
-    this.route.params.subscribe(
-      this.resolveId,
-      this.resolveIsEdit,
-      () => {
-        this.initForm();
-      }
-    )
-  }
-
-  private resolveId(params: Params) {
-    this.id = params['id'];
-  }
-
-  private resolveIsEdit(params: Params) {
-    this.isEdit = !isNull(params['id']);
-  }
-
   private initForm() {
+    this.route.params
+      .pipe(
+        map(mapToId()),
+        switchMap(this.switchIdToEntity()),
+      ).subscribe(
+      (item: Item) => {
+        this.item = item;
+      });
+  }
 
+  private switchIdToEntity(): any {
+    return id => {
+      return this.store.select('item').pipe(
+        map(reduceItemStateToEntity(id))
+      );
+    }
   }
 
 }

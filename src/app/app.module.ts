@@ -8,6 +8,8 @@ import { ItemComponent } from './item/item.component';
 import { ItemFormComponent } from './item/item-form/item-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './store/app.reducer';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     ItemFormComponent,
   ],
   imports: [
+    StoreModule.forRoot(appReducer),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

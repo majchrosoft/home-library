@@ -63,7 +63,7 @@ export const controls = {
   description: new FormControl('', Validators.required),
   author: new FormControl('', Validators.required),
   type: new FormControl(itemTypes.Book, Validators.required),
-  shelf: new FormControl('', Validators.required),
+  shelf: new FormControl(''),
 };
 
 export class ItemFormDefinition implements FormDefinition {
