@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { isbnRegex } from '../../../core/regexp/IsbnRegex';
 import * as _ from 'lodash';
 import { FormDefinition } from '../../shared/FormDefinition';
+import { Item } from '../item.model';
+import { isNull } from 'util';
 
 export const enum itemTypes {
   Book = 'Book',
@@ -51,31 +53,82 @@ const validatorErrorMessages = {
   }
 };
 
+interface formValues {
+  isbn: string,
+  quality: string,
+  title: string,
+  customId: string,
+  description: string,
+  author: string,
+  type: string,
+  shelf: string,
+}
 
-export const controls = {
-  isbn: new FormControl('', [
-    Validators.required,
-    Validators.pattern(isbnRegex)
-  ]),
-  quality: new FormControl(itemQualityScale.Good, [Validators.required, Validators.pattern('^[0-9]*$')]),
-  title: new FormControl('', Validators.required),
-  customId: new FormControl(''),
-  description: new FormControl('', Validators.required),
-  author: new FormControl('', Validators.required),
-  type: new FormControl(itemTypes.Book, Validators.required),
-  shelf: new FormControl(''),
+let defaultValues: formValues = {
+  author: '',
+  customId: '',
+  description: '',
+  isbn: '',
+  quality: itemQualityScale.Good,
+  shelf: '',
+  title: '',
+  type: itemTypes.Book
 };
+
+
+export function controls(values: formValues) {
+  return {
+    isbn: new FormControl(values.isbn, [
+      Validators.required,
+      Validators.pattern(isbnRegex)
+    ]),
+    quality: new FormControl(values.quality, [Validators.required, Validators.pattern('^[0-9]*$')]),
+    title: new FormControl(values.title, Validators.required),
+    customId: new FormControl(values.customId),
+    description: new FormControl(values.description, Validators.required),
+    author: new FormControl(values.author, Validators.required),
+    type: new FormControl(values.type, Validators.required),
+    shelf: new FormControl(values.shelf),
+  };
+}
 
 export class ItemFormDefinition implements FormDefinition {
 
   private formGroup: FormGroup | null = null;
 
   public form(): FormGroup {
-    if (_.isNull(this.formGroup)) {
-      this.formGroup = new FormGroup(controls);
+    if (isNull(this.formGroup)) {
+      throw new Error('form called before initialized');
     }
     return this.formGroup;
   }
+
+
+  public buildFormFromEntity(item: Item): ItemFormDefinition {
+
+    let values: formValues = {
+      isbn: isNull(item.isbn) ? '' : item.isbn,
+      quality: isNull(item.quality) ? '' : item.quality,
+      title: isNull(item.title) ? '' : item.title,
+      customId: isNull(item.customId) ? '' : item.customId,
+      description: isNull(item.description) ? '' : item.description,
+      author: isNull(item.author) ? '' : item.author,
+      type: isNull(item.type) ? '' : item.type,
+      shelf: isNull(item.shelf) ? '' : item.shelf,
+    };
+    this.formGroup = new FormGroup(controls(values));
+
+    return this;
+  }
+
+
+  public buildFormFromDefaultValues(): ItemFormDefinition {
+    if (_.isNull(this.formGroup)) {
+      this.formGroup = new FormGroup(controls(defaultValues));
+    }
+    return this;
+  }
+
 
   validatorErrorMessages() {
     return validatorErrorMessages;

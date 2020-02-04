@@ -16,6 +16,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Item } from '../item.model';
 import { mapToId } from '../../shared/route-params-helpers';
 import { reduceItemStateToEntity } from '../../shared/reducer-helpers';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-item-form',
@@ -30,7 +31,15 @@ export class ItemFormComponent implements OnInit {
   itemQualityScaleList: itemQualityScale[];
   shelves: string[];
   shelveNames: string[];
-  isEdit: boolean = false;
+
+  isEdit(): boolean {
+    return !isNull(this.item);
+  }
+
+  id(): string | null {
+    return !isNull(this.item) ? this.item.id : null;
+  }
+
   item: Item | null;
 
   constructor(
@@ -47,35 +56,24 @@ export class ItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.formDefinition = new ItemFormDefinition();
-    this.form = this.formDefinition.form();
     this.itemTypes = itemTypesArray;
     this.itemQualityScaleList = itemQualityScaleList;
-
-    this.initForm();
-
-
+    this.subscribeToRouteParameterChanges();
   }
 
   public formControlErrorMessages(formControlName): string[] {
     return formControlErrorMessages(this.formDefinition, formControlName);
   }
 
-  /**
-   * @todo anti-pattern
-   * concurrency flow possible problem. how to force that resolveId must be before resolveIsEdit
-   * in
-   *
-   * @todo fatalError
-   * propably bad call of subscribe method
-   */
-  private initForm() {
+  private subscribeToRouteParameterChanges() {
     this.route.params
       .pipe(
         map(mapToId()),
         switchMap(this.switchIdToEntity()),
       ).subscribe(
       (item: Item) => {
-        this.item = item;
+        this.setItem(item);
+        this.initForm(item);
       });
   }
 
@@ -85,6 +83,20 @@ export class ItemFormComponent implements OnInit {
         map(reduceItemStateToEntity(id))
       );
     }
+  }
+
+  private setItem(item: Item | null): void {
+    this.item = item;
+  }
+
+  private initForm(item: Item | null): void {
+    this.form = (() => {
+      if (isNull(item)) {
+        return this.formDefinition.buildFormFromDefaultValues().form();
+      } else {
+        return this.formDefinition.buildFormFromEntity(item).form();
+      }
+    })();
   }
 
 }
