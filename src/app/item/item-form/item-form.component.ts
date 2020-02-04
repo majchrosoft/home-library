@@ -17,6 +17,7 @@ import { Item } from '../item.model';
 import { mapToId } from '../../shared/route-params-helpers';
 import { reduceItemStateToEntity } from '../../shared/reducer-helpers';
 import { isNull } from 'util';
+import { AddItemStart, EditItemStart } from '../store/item.actions';
 
 @Component({
   selector: 'app-item-form',
@@ -51,7 +52,20 @@ export class ItemFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formDefinition.form().getRawValue());
+    if (this.isEdit()) {
+      this.store.dispatch(
+        new EditItemStart({
+          id: this.id(),
+          newItem: this.form.value
+        })
+      )
+    } else {
+      this.store.dispatch(
+        new AddItemStart(
+          this.form.value
+        )
+      )
+    }
   }
 
   ngOnInit() {

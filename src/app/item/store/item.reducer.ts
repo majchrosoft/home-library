@@ -21,7 +21,10 @@ export function itemReducer(
 ) {
   switch (action.type) {
     case ADD_ITEM_START:
-      return { ...state };
+      return {
+        ...state,
+        itemList: [...state.itemList, action.payload]
+      };
     case EDIT_ITEM_START:
       return { ...state };
     case DELETE_ITEM_START:
