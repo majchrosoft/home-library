@@ -1,5 +1,3 @@
-import { isNull } from 'util';
-
 /**
  * @todo anti-pattern model
  * public properties in model it's stateful anti-pattern, but redux approach and copying by ...

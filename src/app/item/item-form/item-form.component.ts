@@ -17,7 +17,7 @@ import { Item } from '../item.model';
 import { mapToId } from '../../shared/route-params-helpers';
 import { reduceItemStateToEntity } from '../../shared/reducer-helpers';
 import { isNull } from 'util';
-import { AddItemStart, EditItemStart } from '../store/item.actions';
+import { AddItem, EditItem } from '../store/item.actions';
 
 @Component({
   selector: 'app-item-form',
@@ -54,14 +54,14 @@ export class ItemFormComponent implements OnInit {
   onSubmit() {
     if (this.isEdit()) {
       this.store.dispatch(
-        new EditItemStart({
+        new EditItem({
           id: this.id(),
           newItem: this.form.value
         })
       )
     } else {
       this.store.dispatch(
-        new AddItemStart(
+        new AddItem(
           this.form.value
         )
       )
