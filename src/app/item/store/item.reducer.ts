@@ -1,6 +1,6 @@
 import { Item } from '../item.model';
 import { ADD_ITEM_START, DELETE_ITEM_START, EDIT_ITEM_START, ItemActions } from './item.actions';
-
+import * as uuid from 'uuid/v4';
 
 export interface ItemState {
   itemList: Item[];
@@ -23,7 +23,10 @@ export function itemReducer(
     case ADD_ITEM_START:
       return {
         ...state,
-        itemList: [...state.itemList, action.payload]
+        itemList: [...state.itemList, {
+          id: uuid(),
+          ...action.payload
+        }]
       };
     case EDIT_ITEM_START:
       return { ...state };
