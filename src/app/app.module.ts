@@ -15,6 +15,8 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ItemEffects } from './item/store/item.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemListComponent } from './item/item-list/item-list.component';
+import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     ItemComponent,
     ItemFormComponent,
+    ItemListComponent,
+    ItemRowComponent,
   ],
   imports: [
     BrowserModule,
