@@ -1,5 +1,5 @@
 import { Item } from '../item.model';
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, ItemActions } from './item.actions';
+import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, ItemActions, SET_ITEM_LIST } from './item.actions';
 import * as uuid from 'uuid/v4';
 
 export interface ItemState {
@@ -27,6 +27,14 @@ export function itemReducer(
           id: uuid(),
           ...action.payload
         }]
+      };
+    case SET_ITEM_LIST:
+      return {
+        ...state,
+        itemList: [
+          ...state.itemList,
+          ...action.payload
+        ]
       };
     case EDIT_ITEM:
       return { ...state };

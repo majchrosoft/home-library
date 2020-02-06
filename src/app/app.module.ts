@@ -12,6 +12,9 @@ import { StoreModule } from '@ngrx/store';
 import { appReducer } from './store/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { ItemEffects } from './item/store/item.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,12 +25,15 @@ import { environment } from '../environments/environment';
     ItemFormComponent,
   ],
   imports: [
-    StoreModule.forRoot(appReducer),
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    SharedModule,
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    SharedModule,
+    EffectsModule.forRoot([ItemEffects]),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
