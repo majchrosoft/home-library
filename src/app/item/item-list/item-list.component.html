@@ -1,10 +1,23 @@
-<div class="row">
-  <div class="col-xs-12">
-    <app-item-row
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Isbn</th>
+    <th scope="col">Quality</th>
+    <th scope="col">Title</th>
+    <th scope="col">CustomId</th>
+    <th scope="col">Description</th>
+    <th scope="col">Author</th>
+    <th scope="col">Type</th>
+    <th scope="col">Shelf</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr app-item-row
       *ngFor="let itemEl of items; let i = index"
       [item]="itemEl"
       [index]="i"
-    ></app-item-row>
-  </div>
-</div>
-
+  ></tr>
+  </tbody>
+</table>

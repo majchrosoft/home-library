@@ -1,14 +1,13 @@
-<a
-  style="cursor: pointer;"
-  [routerLink]="[index]"
-  routerLinkActive="active"
-  class="list-group-item clearfix">
-  <div class="pull-left">
-    <h4 class="list-group-item-heading">{{ item.title }}</h4>
-    <p class="list-group-item-text">{{ item.isbn }}</p>
-  </div>
-  <span class="pull-right">
-       <a href="#">details</a>
-       <a href="#">edit</a>
-      </span>
-</a>
+<td>{{item.id}}</td>
+<td>{{item.isbn}}</td>
+<td>{{item.quality}}</td>
+<td>{{item.title}}</td>
+<td>{{item.customId}}</td>
+<td>{{item.description}}</td>
+<td>{{item.author}}</td>
+<td>{{item.type}}</td>
+<td>{{item.shelf}}</td>
+<td app-item-row-td-actions
+    [item]="item"
+></td>
+

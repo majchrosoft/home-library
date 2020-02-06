@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../item.model';
 
 @Component({
-  selector: 'app-item-row',
+  selector: '[app-item-row]',
   templateUrl: './item-row.component.html',
   styleUrls: ['./item-row.component.css']
 })
