@@ -2,9 +2,12 @@ import { User } from '../user-model';
 import { AuthenticateFail, AuthenticateSuccess, SIGNUP_START, SignupStart } from './auth-actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+import { AuthService, AuthSignUpRequestData, AuthSignUpResponseData } from '../auth.service';
+import { of } from 'rxjs';
 
 export interface AuthResponseData {
   kind: string;
@@ -72,7 +75,7 @@ export class AuthEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    // private authService: AuthServic
+    private authService: AuthService
   ) {
   }
 
@@ -81,8 +84,32 @@ export class AuthEffects {
     ofType(SIGNUP_START),
     switchMap(
       (signupAction: SignupStart) => {
-        return this.http.post<AuthResponseData>(
 
+        let signUpRequestData = new AuthSignUpRequestData({
+            email: signupAction.payload.email,
+            password: signupAction.payload.password,
+            returnSecureToken: true
+          }
+        );
+
+        return this.http.post<AuthResponseData>(
+          signUpRequestData.url,
+          signUpRequestData.body
+        ).pipe(
+          tap((responseData: AuthSignUpResponseData) => {
+            this.authService.setLogoutTimer(+responseData.expiresIn);
+          }),
+          map((responseData: AuthResponseData) => {
+            return handleAuthentication(
+              +responseData.expiresIn,
+              responseData.email,
+              responseData.localId,
+              responseData.idToken
+            );
+          }),
+          catchError(errorResponse => {
+            return handleError(errorResponse);
+          })
         )
       })
   )
