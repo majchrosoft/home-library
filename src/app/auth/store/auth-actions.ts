@@ -1,3 +1,6 @@
+//import { Action } from '@ngrx/store';
+
+import { CommonAction } from '../../shared/store/common-action';
 import { Action } from '@ngrx/store';
 
 export const LOGIN_START = '[Auth] Login Start';
@@ -8,7 +11,7 @@ export const CLEAR_ERROR = '[Auth] Clear Error';
 export const AUTO_LOGIN = '[Auth] Auto Login';
 export const LOGOUT = '[Auth] Logout';
 
-class AuthenticateSuccessPayload {
+export class AuthenticateSuccessPayload {
   email: string;
   userId: string;
   token: string;
@@ -16,7 +19,7 @@ class AuthenticateSuccessPayload {
   redirect: boolean;
 }
 
-class LoginOrSignUpStartPayload {
+export class LoginOrSignUpStartPayload {
   email: string;
   password: string
 }
@@ -58,15 +61,15 @@ export class SignupStart implements Action {
   }
 }
 
-export class ClearError implements Action {
+export class ClearError extends CommonAction {
   readonly type = CLEAR_ERROR;
 }
 
-export class AutoLogin implements Action {
+export class AutoLogin extends CommonAction {
   readonly type = AUTO_LOGIN;
 }
 
-export class Logout implements Action {
+export class Logout extends CommonAction {
   readonly type = LOGOUT;
 }
 

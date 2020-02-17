@@ -22,6 +22,8 @@ import {
 } from '../auth.service';
 import { of } from 'rxjs';
 import { UserDataStorageService } from '../user-data-storage-service';
+import { handleAuthentication } from './auth-effects/handle-authentication';
+import { handleError } from './auth-effects/handle-error';
 
 let userDataStorageService = new UserDataStorageService();
 
@@ -33,56 +35,6 @@ export interface AuthResponseData {
   expiresIn: string;
   localId: string;
   registered?: boolean;
-}
-
-
-const handleAuthentication = (
-  expiresIn: number,
-  email: string,
-  userId: string,
-  token: string
-) => {
-  const expirationDate = new Date((new Date()).getTime() + expiresIn * 1000);
-  const user = new User(
-    email,
-    userId,
-    token,
-    expirationDate
-  );
-
-  userDataStorageService.setUser(user);
-
-  return new AuthenticateSuccess({
-    email: email,
-    userId: userId,
-    token: token,
-    expirationDate: expirationDate,
-    redirect: true
-  });
-}
-
-const enum errors {
-  EMAIL_EXISTS = 'EMAIL_EXISTS',
-  EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
-  INVALID_PASSWORD = 'INVALID_PASSWOR',
-  UNKNOWN = 'UNKNOWN_ERROR',
-}
-
-const knownErrorsHasMap = new Map([
-  [errors.EMAIL_EXISTS, 'email exists'],
-  [errors.EMAIL_NOT_FOUND, 'email not found'],
-  [errors.INVALID_PASSWORD, 'invalid password'],
-  [errors.UNKNOWN, 'unkonwn error'],
-]);
-
-const handleError = (errorRes: any) => {
-  let errorMessage = 'Error occured. Retry Your action again later.';
-  if (!errorRes.error || !errorRes.error.error) {
-    return of(new AuthenticateFail(errorMessage));
-  }
-
-  return knownErrorsHasMap.has(errorRes.error.error) ? knownErrorsHasMap.get(errorRes.error.error) : knownErrorsHasMap.get(errors.UNKNOWN);
-
 }
 
 @Injectable()

@@ -18,7 +18,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
-import { PlaceholderDirective } from './placeholder.directive';
 
 
 @NgModule({
@@ -30,7 +29,6 @@ import { PlaceholderDirective } from './placeholder.directive';
     ItemListComponent,
     ItemRowComponent,
     ItemRowTdActionsComponent,
-    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +39,6 @@ import { PlaceholderDirective } from './placeholder.directive';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     SharedModule,
     EffectsModule.forRoot([ItemEffects]),
-
   ],
   providers: [],
   bootstrap: [AppComponent]

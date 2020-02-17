@@ -1,21 +1,28 @@
 import { AuthenticateFail } from '../auth-actions';
 import { of } from 'rxjs';
 
-const handleError = (errorRes: any) => {
-  let errorMessage = 'An unknown error occurred!';
+
+const enum errors {
+  EMAIL_EXISTS = 'EMAIL_EXISTS',
+  EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
+  INVALID_PASSWORD = 'INVALID_PASSWOR',
+  UNKNOWN = 'UNKNOWN_ERROR',
+}
+
+const knownErrorsHasMap = new Map([
+  [errors.EMAIL_EXISTS, 'email exists'],
+  [errors.EMAIL_NOT_FOUND, 'email not found'],
+  [errors.INVALID_PASSWORD, 'invalid password'],
+  [errors.UNKNOWN, 'unkonwn error'],
+]);
+
+
+export const handleError = (errorRes: any) => {
+  let errorMessage = 'Error occured. Retry Your action again later.';
   if (!errorRes.error || !errorRes.error.error) {
     return of(new AuthenticateFail(errorMessage));
   }
-  switch (errorRes.error.error.message) {
-    case 'EMAIL_EXISTS':
-      errorMessage = 'This email exists already';
-      break;
-    case 'EMAIL_NOT_FOUND':
-      errorMessage = 'This email does not exist.';
-      break;
-    case 'INVALID_PASSWORD':
-      errorMessage = 'This password is not correct.';
-      break;
-  }
-  return of(new AuthenticateFail(errorMessage));
-};
+
+  return knownErrorsHasMap.has(errorRes.error.error) ? knownErrorsHasMap.get(errorRes.error.error) : knownErrorsHasMap.get(errors.UNKNOWN);
+
+}

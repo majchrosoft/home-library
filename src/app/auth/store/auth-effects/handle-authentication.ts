@@ -1,5 +1,9 @@
 import { AuthenticateSuccess } from '../auth-actions';
 import { User } from '../../user-model';
+import { UserDataStorageService } from '../../user-data-storage-service';
+
+let userDataStorageService = new UserDataStorageService();
+
 
 export const handleAuthentication = (
   expiresIn: number,
@@ -7,9 +11,16 @@ export const handleAuthentication = (
   userId: string,
   token: string
 ) => {
-  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-  const user = new User(email, userId, token, expirationDate);
-  localStorage.setItem('userData', JSON.stringify(user));
+  const expirationDate = new Date((new Date()).getTime() + expiresIn * 1000);
+  const user = new User(
+    email,
+    userId,
+    token,
+    expirationDate
+  );
+
+  userDataStorageService.setUser(user);
+
   return new AuthenticateSuccess({
     email: email,
     userId: userId,
@@ -17,4 +28,4 @@ export const handleAuthentication = (
     expirationDate: expirationDate,
     redirect: true
   });
-};
+}
