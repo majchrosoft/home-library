@@ -9,19 +9,19 @@ import {
   SIGNUP_START
 } from './auth-actions';
 
-export interface State {
+export interface AuthState {
   user: User | null,
   authError: string | null,
   loading: boolean
 }
 
-const initialState: State = {
+const initialState: AuthState = {
   user: null,
   authError: null,
   loading: false
 }
 
-const loginOrSignUpStartReducer = (state: State, action: AuthActions): State => {
+const loginOrSignUpStartReducer = (state: AuthState, action: AuthActions): AuthState => {
   return {
     ...state,
     authError: null,
@@ -29,13 +29,13 @@ const loginOrSignUpStartReducer = (state: State, action: AuthActions): State => 
   }
 };
 
-const defaultReducer = (state: State, action: AuthActions): State => {
+const defaultReducer = (state: AuthState, action: AuthActions): AuthState => {
   return {
     ...state
   }
 };
 
-const authenticateSuccessReducer = (state: State, action: AuthActions): State => {
+const authenticateSuccessReducer = (state: AuthState, action: AuthActions): AuthState => {
   const user: User = new User(
     action.payload.email,
     action.payload.userId,
@@ -55,20 +55,20 @@ const actions = new Map([
   [LOGIN_START, loginOrSignUpStartReducer],
   [SIGNUP_START, loginOrSignUpStartReducer],
   [AUTHENTICATE_SUCCESS, authenticateSuccessReducer],
-  [AUTHENTICATE_FAIL, (state: State, action: AuthActions): State => {
+  [AUTHENTICATE_FAIL, (state: AuthState, action: AuthActions): AuthState => {
     return {
       ...state,
       authError: null,
       loading: true
     }
   }],
-  [CLEAR_ERROR, (state: State, action: AuthActions): State => {
+  [CLEAR_ERROR, (state: AuthState, action: AuthActions): AuthState => {
     return {
       ...state,
       authError: null,
     }
   }],
-  [LOGOUT, (state: State, action: AuthActions): State => {
+  [LOGOUT, (state: AuthState, action: AuthActions): AuthState => {
     return {
       ...state,
       user: null
@@ -79,8 +79,8 @@ const actions = new Map([
 
 
 export function authReducer(
-  state: State = initialState,
+  state: AuthState = initialState,
   action: AuthActions
 ) {
-
+  return actions.get(action.type)(state, action);
 }

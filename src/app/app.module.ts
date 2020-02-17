@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
+import { PlaceholderDirective } from './placeholder.directive';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td
     ItemListComponent,
     ItemRowComponent,
     ItemRowTdActionsComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
