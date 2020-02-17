@@ -82,5 +82,9 @@ export function authReducer(
   state: AuthState = initialState,
   action: AuthActions
 ) {
-  return actions.get(action.type)(state, action);
+  if (actions.has(action.type)) {
+    return actions.get(action.type)(state, action);
+  }
+
+  return { ...state };
 }

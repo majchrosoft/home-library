@@ -16,7 +16,11 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
     PlaceholderDirective
   ],
   exports: [
-    FormMessageErrorComponent
+    FormMessageComponent,
+    FormMessageErrorComponent,
+    LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     CommonModule
