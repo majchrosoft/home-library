@@ -13,7 +13,7 @@ const knownErrorsHashMap = new Map([
   [errors.EMAIL_EXISTS, 'email exists'],
   [errors.EMAIL_NOT_FOUND, 'email not found'],
   [errors.INVALID_PASSWORD, 'invalid password'],
-  [errors.UNKNOWN, 'unkonwn error'],
+  [errors.UNKNOWN, 'unknown error'],
 ]);
 
 
@@ -27,7 +27,7 @@ export const handleError = (errorRes: any) => {
     ) {
       return knownErrorsHashMap.get(errors.UNKNOWN);
     }
-    return knownErrorsHashMap.get(errorRes.error.error);
+    return knownErrorsHashMap.get(errorRes.error.error.message);
   })();
 
   return of(new AuthenticateFail(errorMessage));
