@@ -1,10 +1,11 @@
 import { User } from '../user-model';
 import {
   AUTHENTICATE_SUCCESS,
-  AuthenticateFail,
-  AuthenticateSuccess, AUTO_LOGIN,
+  AuthenticateSuccess,
+  AUTO_LOGIN,
   LOGIN_START,
-  LoginStart, LOGOUT,
+  LoginStart,
+  LOGOUT,
   SIGNUP_START,
   SignupStart
 } from './auth-actions';
@@ -20,7 +21,6 @@ import {
   AuthSignUpRequestData,
   AuthSignUpResponseData
 } from '../auth.service';
-import { of } from 'rxjs';
 import { UserDataStorageService } from '../user-data-storage-service';
 import { handleAuthentication } from './auth-effects/handle-authentication';
 import { handleError } from './auth-effects/handle-error';
@@ -110,7 +110,6 @@ export class AuthEffects {
             )
           }),
           catchError(errorResponse => {
-            console.log(errorResponse);
             return handleError(errorResponse);
           })
         )

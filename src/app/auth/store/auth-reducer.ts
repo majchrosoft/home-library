@@ -58,7 +58,7 @@ const actions = new Map([
   [AUTHENTICATE_FAIL, (state: AuthState, action: AuthActions): AuthState => {
     return {
       ...state,
-      authError: null,
+      authError: action.payload,
       loading: true
     }
   }],
