@@ -5,9 +5,9 @@ export abstract class AbstractRequestData {
 
   get url(): string {
 
-    const toUrlReducer = (partialUrl: string,
-                          paramName: string,
-                          index: number) => {
+    const bindUrlParameter = (partialUrl: string,
+                              paramName: string,
+                              index: number) => {
       return partialUrl.replace(paramName, this.params[index]);
     }
 
@@ -15,7 +15,10 @@ export abstract class AbstractRequestData {
       return this.metaUrl;
     }
 
+    const buildUrl = () => {
+      return this.paramNames.reduce(bindUrlParameter, this.metaUrl);
+    }
 
-    return this.paramNames.reduce(toUrlReducer, this.metaUrl);
+    return buildUrl();
   }
 }
