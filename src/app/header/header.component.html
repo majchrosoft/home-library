@@ -1,41 +1,19 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand">My Catalog</a>
+    <div class="navbar-header" *ngIf="isAuthenticated">
+      <a class="navbar-brand" routerLink="/items">Catalog</a>
       <a class="navbar-brand" routerLink="/items/add">Add</a>
     </div>
 
     <div>
       <ul class="nav navbar-nav">
-        <li>
-          <a>Books & Items</a>
-        </li>
-        <li>
-          <a routerLink="/items">Books & Items</a>
-        </li>
-        <li>
-          <a>Authenticate</a>
-        </li>
-        <li>
-          <a>Shopping List</a>
+        <li routerLinkActive="active" *ngIf="!isAuthenticated">
+          <a routerLink="/auth">Sign in</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a style="cursor: pointer;">Logout</a>
-        </li>
-        <li>
-          <a style="cursor: pointer;" class="dropdown-toggle" role="button"
-          >Manage <span class="caret"></span
-          ></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a>Bla</a>
-            </li>
-            <li>
-              <a>Blo</a>
-            </li>
-          </ul>
+        <li *ngIf="isAuthenticated">
+          <a class="btn-link" style="cursor: pointer;" (click)="onLogOut()">Logout</a>
         </li>
       </ul>
     </div>

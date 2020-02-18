@@ -5,7 +5,7 @@ import { AppState } from '../../store/app.reducer';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 import { NgForm } from '@angular/forms';
-import { LOGIN_START, LoginStart, SIGNUP_START, SignupStart } from '../store/auth-actions';
+import { ClearError, LOGIN_START, LoginStart, SIGNUP_START, SignupStart } from '../store/auth-actions';
 
 @Component({
   selector: 'app-auth',
@@ -58,7 +58,6 @@ export class AuthComponent implements OnInit {
     };
 
     const dispatchSignUpStart = () => {
-
       this.store.dispatch(
         new SignupStart({ email: email, password: password })
       );
@@ -79,7 +78,6 @@ export class AuthComponent implements OnInit {
   }
 
   private showErrorAlert(message: string) {
-    // const alertCmp = new AlertComponent();
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
     );
@@ -91,6 +89,7 @@ export class AuthComponent implements OnInit {
     componentRef.instance.message = message;
     this.closeSub = componentRef.instance.close.subscribe(() => {
       this.closeSub.unsubscribe();
+      this.store.dispatch(new ClearError());
       hostViewContainerRef.clear();
     });
   }

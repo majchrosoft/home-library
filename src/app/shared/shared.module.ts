@@ -22,6 +22,7 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
     AlertComponent,
     PlaceholderDirective
   ],
+  entryComponents: [AlertComponent],
   imports: [
     CommonModule
   ]

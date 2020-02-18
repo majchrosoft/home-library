@@ -66,6 +66,7 @@ const actions = new Map([
     return {
       ...state,
       authError: null,
+      loading: false,
     }
   }],
   [LOGOUT, (state: AuthState, action: AuthActions): AuthState => {
