@@ -15,6 +15,7 @@ export abstract class AbstractRequestData {
       return this.metaUrl;
     }
 
-    return this.params.reduce(toUrlReducer, this.metaUrl);
+
+    return this.paramNames.reduce(toUrlReducer, this.metaUrl);
   }
 }
