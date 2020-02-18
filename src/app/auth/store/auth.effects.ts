@@ -110,6 +110,7 @@ export class AuthEffects {
             )
           }),
           catchError(errorResponse => {
+            console.log(errorResponse);
             return handleError(errorResponse);
           })
         )

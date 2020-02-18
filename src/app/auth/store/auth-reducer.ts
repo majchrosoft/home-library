@@ -75,7 +75,7 @@ const actions = new Map([
     }
   }],
   ['default', defaultReducer],
-])
+]);
 
 
 export function authReducer(

@@ -5,11 +5,11 @@ import { of } from 'rxjs';
 const enum errors {
   EMAIL_EXISTS = 'EMAIL_EXISTS',
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
-  INVALID_PASSWORD = 'INVALID_PASSWOR',
+  INVALID_PASSWORD = 'INVALID_PASSWORD',
   UNKNOWN = 'UNKNOWN_ERROR',
 }
 
-const knownErrorsHasMap = new Map([
+const knownErrorsHashMap = new Map([
   [errors.EMAIL_EXISTS, 'email exists'],
   [errors.EMAIL_NOT_FOUND, 'email not found'],
   [errors.INVALID_PASSWORD, 'invalid password'],
@@ -18,11 +18,17 @@ const knownErrorsHasMap = new Map([
 
 
 export const handleError = (errorRes: any) => {
-  let errorMessage = 'Error occured. Retry Your action again later.';
-  if (!errorRes.error || !errorRes.error.error) {
-    return of(new AuthenticateFail(errorMessage));
-  }
 
-  return knownErrorsHasMap.has(errorRes.error.error) ? knownErrorsHasMap.get(errorRes.error.error) : knownErrorsHasMap.get(errors.UNKNOWN);
+  const errorMessage = (() => {
+    if (
+      !errorRes.error ||
+      !errorRes.error.error ||
+      !knownErrorsHashMap.has(errorRes.error.error.message)
+    ) {
+      return knownErrorsHashMap.get(errors.UNKNOWN);
+    }
+    return knownErrorsHashMap.get(errorRes.error.error);
+  })();
 
+  return of(new AuthenticateFail(errorMessage));
 }
