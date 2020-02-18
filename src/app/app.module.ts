@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
+import { AuthEffects } from './auth/store/auth.effects';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     SharedModule,
-    EffectsModule.forRoot([ItemEffects]),
+    EffectsModule.forRoot([ItemEffects, AuthEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

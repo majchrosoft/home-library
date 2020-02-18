@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     CommonModule,
     RouterModule.forChild([{ path: '', component: AuthComponent }])
+
   ]
 })
 export class AuthModule {
