@@ -9,3 +9,4 @@
 - id should be add on backend and there should be action update id after 200 in state - which actualize id
 frontend shouldn't be possible to change id - it's voulnerable
 
+- add timestamps value object to every entity
