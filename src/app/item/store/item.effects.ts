@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
-import { ADD_ITEM, EDIT_ITEM, FETCH_ITEM_LIST, SetItemList, STORE_ITEM_LIST } from './item.actions';
+import { ADD_USER_ITEM, EDIT_USER_ITEM, FETCH_USER_ITEM_LIST, SetUserItemList, STORE_ITEM_LIST } from './item.actions';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { Item } from '../item.model';
+import { UserItem } from '../user-item.model';
 import { ItemState } from './item.reducer';
 
 @Injectable()
@@ -20,21 +20,21 @@ export class ItemEffects {
 
   @Effect({ dispatch: false })
   fetchItems = this.actions$.pipe(
-    ofType(FETCH_ITEM_LIST),
+    ofType(FETCH_USER_ITEM_LIST),
     switchMap(() => {
-      return this.http.get<Item[]>(
+      return this.http.get<UserItem[]>(
         'https://home-library-d13b5.firebaseio.com/items.json'
       )
     }),
     map(
-      (items: Item[]) => {
-        return new SetItemList(items);
+      (items: UserItem[]) => {
+        return new SetUserItemList(items);
       })
   );
 
   @Effect({ dispatch: false })
   storeItems = this.actions$.pipe(
-    ofType(ADD_ITEM, EDIT_ITEM),
+    ofType(ADD_USER_ITEM, EDIT_USER_ITEM),
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {

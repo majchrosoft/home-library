@@ -1,13 +1,22 @@
+import { User } from './user-model';
+
 const userDataLocalStorageKey = 'userData';
 
-export class UserDataStorageService {
+export class UserData {
+  email: string;
+  id: string;
+  _token: string;
+  _tokenExpirationDate: string;
+}
+
+class UserDataStorageService {
 
   setUser(user) {
     localStorage.setItem(userDataLocalStorageKey, JSON.stringify(user));
   }
 
-  getUser() {
-    return JSON.parse(localStorage.getItem(userDataLocalStorageKey));
+  getUser(): UserData {
+    return <UserData> JSON.parse(localStorage.getItem(userDataLocalStorageKey));
   }
 
   removeUser() {
@@ -15,3 +24,6 @@ export class UserDataStorageService {
   }
 
 }
+
+export const userDataStorageService = new UserDataStorageService();
+

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../store/app.reducer';
 import { Store } from '@ngrx/store';
-import { FetchItemList } from './store/item.actions';
+import { FetchUserItemList } from './store/item.actions';
 
 @Component({
   selector: 'app-item',
@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new FetchItemList());
+    this.store.dispatch(new FetchUserItemList());
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../item.model';
+import { UserItem } from '../../user-item.model';
 
 @Component({
   selector: '[app-item-row]',
@@ -7,7 +7,7 @@ import { Item } from '../../item.model';
   styleUrls: ['./item-row.component.css']
 })
 export class ItemRowComponent implements OnInit {
-  @Input('item') item: Item;
+  @Input('item') item: UserItem;
   @Input('index') index: number;
 
   constructor() {

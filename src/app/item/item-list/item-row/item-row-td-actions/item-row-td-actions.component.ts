@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../item.model';
+import { UserItem } from '../../../user-item.model';
 
 @Component({
   selector: '[app-item-row-td-actions]',
@@ -8,7 +8,7 @@ import { Item } from '../../../item.model';
 })
 export class ItemRowTdActionsComponent implements OnInit {
 
-  @Input('item') item: Item;
+  @Input('item') item: UserItem;
 
   constructor() {
   }

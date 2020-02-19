@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { isbnRegex } from '../../../core/regexp/IsbnRegex';
 import * as _ from 'lodash';
 import { FormDefinition } from '../../shared/FormDefinition';
-import { Item } from '../item.model';
+import { UserItem } from '../user-item.model';
 import { isNull } from 'util';
 
 export const enum itemTypes {
@@ -101,17 +101,17 @@ export class ItemFormDefinition implements FormDefinition {
   }
 
 
-  public buildFormFromEntity(item: Item): ItemFormDefinition {
+  public buildFormFromEntity(userItem: UserItem): ItemFormDefinition {
 
     let values: formValues = {
-      isbn: isNull(item.isbn) ? '' : item.isbn,
-      quality: isNull(item.quality) ? '' : item.quality,
-      title: isNull(item.title) ? '' : item.title,
-      customId: isNull(item.customId) ? '' : item.customId,
-      description: isNull(item.description) ? '' : item.description,
-      author: isNull(item.author) ? '' : item.author,
-      type: isNull(item.type) ? '' : item.type,
-      shelf: isNull(item.shelf) ? '' : item.shelf,
+      isbn: isNull(userItem.item.isbn) ? '' : userItem.item.isbn,
+      quality: isNull(userItem.item.quality) ? '' : userItem.item.quality,
+      title: isNull(userItem.item.title) ? '' : userItem.item.title,
+      customId: isNull(userItem.item.customId) ? '' : userItem.item.customId,
+      description: isNull(userItem.item.description) ? '' : userItem.item.description,
+      author: isNull(userItem.item.author) ? '' : userItem.item.author,
+      type: isNull(userItem.item.type) ? '' : userItem.item.type,
+      shelf: isNull(userItem.item.shelf) ? '' : userItem.item.shelf,
     };
     this.formGroup = new FormGroup(controls(values));
 

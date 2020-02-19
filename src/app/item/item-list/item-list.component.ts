@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
-import { Item } from '../item.model';
+import { UserItem } from '../user-item.model';
 import { map } from 'rxjs/operators';
 import { ItemState } from '../store/item.reducer';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ItemListComponent implements OnInit, OnDestroy {
 
-  items: Item[];
+  items: UserItem[];
 
   itemsSubscription: Subscription;
 
@@ -32,7 +32,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
           }
         )
       ).subscribe(
-        (itemList: Item[]) => {
+        (itemList: UserItem[]) => {
           this.items = itemList;
         }
       )

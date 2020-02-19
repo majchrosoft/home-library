@@ -1,10 +1,11 @@
-import { Item } from '../item.model';
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM, ItemActions, SET_ITEM_LIST } from './item.actions';
-import * as uuid from 'uuid/v4';
+import { factorizeUserItem, UserItem } from '../user-item.model';
+import { ADD_USER_ITEM, DELETE_USER_ITEM, EDIT_USER_ITEM, ItemActions, SET_USER_ITEM_LIST } from './item.actions';
+import { userDataStorageService } from '../../auth/user-data-storage-service';
+import { Item } from '../item.vo';
 
 export interface ItemState {
-  itemList: Item[];
-  editedItem: Item | null,
+  itemList: UserItem[];
+  editedItem: UserItem | null,
   editedItemId: string | null
 }
 
@@ -20,15 +21,15 @@ export function itemReducer(
   action: ItemActions
 ) {
   switch (action.type) {
-    case ADD_ITEM:
+    case ADD_USER_ITEM:
       return {
         ...state,
-        itemList: [...state.itemList, {
-          id: uuid(),
-          ...action.payload
-        }]
+        itemList: [
+          ...state.itemList,
+          factorizeUserItem(action.payload)
+        ]
       };
-    case SET_ITEM_LIST:
+    case SET_USER_ITEM_LIST:
       return {
         ...state,
         itemList: [
@@ -36,9 +37,9 @@ export function itemReducer(
           ...action.payload
         ]
       };
-    case EDIT_ITEM:
+    case EDIT_USER_ITEM:
       return { ...state };
-    case DELETE_ITEM:
+    case DELETE_USER_ITEM:
       return { ...state };
     default:
       return state;

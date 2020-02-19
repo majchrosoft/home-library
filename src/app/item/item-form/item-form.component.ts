@@ -13,11 +13,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { Item } from '../item.model';
+import { UserItem } from '../user-item.model';
 import { mapToId } from '../../shared/route-params-helpers';
-import { reduceItemStateToEntity } from '../../shared/reducer-helpers';
 import { isNull } from 'util';
-import { AddItem, EditItem } from '../store/item.actions';
+import { AddUserItem, EditUserItem } from '../store/item.actions';
+import { userItemOfId } from '../store/reducer-helpers';
 
 @Component({
   selector: 'app-item-form',
@@ -41,7 +41,7 @@ export class ItemFormComponent implements OnInit {
     return !isNull(this.item) ? this.item.id : null;
   }
 
-  item: Item | null;
+  item: UserItem | null;
 
   constructor(
     private store: Store<AppState>,
@@ -54,16 +54,15 @@ export class ItemFormComponent implements OnInit {
   onSubmit() {
     if (this.isEdit()) {
       this.store.dispatch(
-        new EditItem({
-          id: this.id(),
-          newItem: this.form.value
+        new EditUserItem({
+          ...this.form.value
         })
       )
     } else {
       this.store.dispatch(
-        new AddItem(
-          this.form.value
-        )
+        new AddUserItem({
+          ...this.form.value
+        })
       )
     }
   }
@@ -85,7 +84,7 @@ export class ItemFormComponent implements OnInit {
         map(mapToId()),
         switchMap(this.switchIdToEntity()),
       ).subscribe(
-      (item: Item) => {
+      (item: UserItem) => {
         this.setItem(item);
         this.initForm(item);
       });
@@ -94,16 +93,16 @@ export class ItemFormComponent implements OnInit {
   private switchIdToEntity(): any {
     return id => {
       return this.store.select('item').pipe(
-        map(reduceItemStateToEntity(id))
+        map(userItemOfId(id))
       );
     }
   }
 
-  private setItem(item: Item | null): void {
+  private setItem(item: UserItem | null): void {
     this.item = item;
   }
 
-  private initForm(item: Item | null): void {
+  private initForm(item: UserItem | null): void {
     this.form = (() => {
       if (isNull(item)) {
         return this.formDefinition.buildFormFromDefaultValues().form();

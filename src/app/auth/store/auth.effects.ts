@@ -21,11 +21,10 @@ import {
   AuthSignUpRequestData,
   AuthSignUpResponseData
 } from '../auth.service';
-import { UserDataStorageService } from '../user-data-storage-service';
+import { UserData, userDataStorageService } from '../user-data-storage-service';
 import { handleAuthentication } from './auth-effects/handle-authentication';
 import { handleError } from './auth-effects/handle-error';
 
-let userDataStorageService = new UserDataStorageService();
 
 export interface AuthResponseData {
   kind: string;
@@ -130,13 +129,7 @@ export class AuthEffects {
   autoLogin = this.actions$.pipe(
     ofType(AUTO_LOGIN),
     map(() => {
-      const userData: {
-        email: string;
-        id: string;
-        _token: string;
-        _tokenExpirationDate: string;
-      } = userDataStorageService.getUser()
-
+      const userData: UserData = userDataStorageService.getUser()
 
       if (!userData) {
         return { type: 'DUMMY' };

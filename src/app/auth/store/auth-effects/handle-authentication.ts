@@ -1,9 +1,6 @@
 import { AuthenticateSuccess } from '../auth-actions';
 import { User } from '../../user-model';
-import { UserDataStorageService } from '../../user-data-storage-service';
-
-let userDataStorageService = new UserDataStorageService();
-
+import { userDataStorageService } from '../../user-data-storage-service';
 
 export const handleAuthentication = (
   expiresIn: number,
