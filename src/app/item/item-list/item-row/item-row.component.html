@@ -1,13 +1,13 @@
-<td>{{item.id}}</td>
-<td>{{item.isbn}}</td>
-<td>{{item.quality}}</td>
-<td>{{item.title}}</td>
-<td>{{item.customId}}</td>
-<td>{{item.description}}</td>
-<td>{{item.author}}</td>
-<td>{{item.type}}</td>
-<td>{{item.shelf}}</td>
+<td>{{userItem.id}}</td>
+<td>{{userItem.item.isbn}}</td>
+<td>{{userItem.item.quality}}</td>
+<td>{{userItem.item.title}}</td>
+<td>{{userItem.item.customId}}</td>
+<td>{{userItem.item.description}}</td>
+<td>{{userItem.item.author}}</td>
+<td>{{userItem.item.type}}</td>
+<td>{{userItem.item.shelf}}</td>
 <td app-item-row-td-actions
-    [item]="item"
+    [item]="userItem"
 ></td>
 

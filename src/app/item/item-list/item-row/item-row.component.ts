@@ -7,7 +7,7 @@ import { UserItem } from '../../user-item.model';
   styleUrls: ['./item-row.component.css']
 })
 export class ItemRowComponent implements OnInit {
-  @Input('item') item: UserItem;
+  @Input('userItem') userItem: UserItem;
   @Input('index') index: number;
 
   constructor() {

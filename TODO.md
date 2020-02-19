@@ -12,3 +12,11 @@
 frontend shouldn't be possible to change id - it's voulnerable
 
 - add timestamps value object to every entity
+
+
+-- load store after login
+
+
+-- don't lose store after logout, but restrict in frontend - not show it (
+add logged in interceptor on protected endpoints routes ?
+)

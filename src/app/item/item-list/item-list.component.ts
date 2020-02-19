@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ItemListComponent implements OnInit, OnDestroy {
 
-  items: UserItem[];
+  userItems: UserItem[];
 
   itemsSubscription: Subscription;
 
@@ -33,7 +33,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
         )
       ).subscribe(
         (itemList: UserItem[]) => {
-          this.items = itemList;
+          this.userItems = itemList;
         }
       )
   }
