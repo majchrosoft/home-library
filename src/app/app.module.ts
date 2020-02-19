@@ -14,11 +14,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ItemEffects } from './item/store/item.effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
 import { AuthEffects } from './auth/store/auth.effects';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 
 @NgModule({
@@ -41,7 +42,13 @@ import { AuthEffects } from './auth/store/auth.effects';
     SharedModule,
     EffectsModule.forRoot([ItemEffects, AuthEffects]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
