@@ -7,6 +7,7 @@ import { ADD_USER_ITEM, EDIT_USER_ITEM, FETCH_USER_ITEM_LIST, SetUserItemList, S
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { UserItem } from '../user-item.model';
 import { ItemState } from './item.reducer';
+import { userDataStorageService } from '../../auth/user-data-storage-service';
 
 @Injectable()
 export class ItemEffects {
@@ -23,7 +24,7 @@ export class ItemEffects {
     ofType(FETCH_USER_ITEM_LIST),
     switchMap(() => {
       return this.http.get<UserItem[]>(
-        'https://home-library-d13b5.firebaseio.com/items.json'
+        'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.getUser().id + '/items.json'
       )
     }),
     map(
@@ -39,7 +40,7 @@ export class ItemEffects {
     switchMap(
       ([actionData, itemState]) => {
         return this.http.put(
-          'https://home-library-d13b5.firebaseio.com/items.json',
+          'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.getUser().id + '/items.json',
           itemState.itemList
         )
       }

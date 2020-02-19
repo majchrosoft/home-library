@@ -1,3 +1,5 @@
+- extract resource endpoint definition from item.effects.ts to separate definition
+
 - define restrictions in backend on logged user id mainaining only it's own item entries
 
 
