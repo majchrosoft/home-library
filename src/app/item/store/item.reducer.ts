@@ -26,7 +26,15 @@ export function itemReducer(
         ...state,
         itemList: [
           ...state.itemList,
-          factorizeUserItem(action.payload)
+          factorizeUserItem(action.payload.item)
+        ]
+      };
+    case EDIT_USER_ITEM:
+      return {
+        ...state,
+        itemList: [
+          ...state.itemList,
+          factorizeUserItem(action.payload.item, action.payload.id)
         ]
       };
     case SET_USER_ITEM_LIST:
@@ -37,8 +45,6 @@ export function itemReducer(
           ...action.payload
         ]
       };
-    case EDIT_USER_ITEM:
-      return { ...state };
     case DELETE_USER_ITEM:
       return { ...state };
     default:

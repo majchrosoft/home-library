@@ -14,6 +14,7 @@ import {
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { factorizeUserItem, UserItem } from '../user-item.model';
 import { HttpUserItemServiceRepository } from '../../../infrastructure/persistance/http/http-user-item-service-repository';
+import { Item } from '../item.vo';
 
 @Injectable()
 export class ItemEffects {
@@ -39,12 +40,23 @@ export class ItemEffects {
   );
 
   @Effect({ dispatch: false })
-  storeItems = this.actions$.pipe(
-    ofType(ADD_USER_ITEM, EDIT_USER_ITEM),
+  storeItem = this.actions$.pipe(
+    ofType(ADD_USER_ITEM),
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
-        return this.httpUserItemServiceRepository.add(factorizeUserItem(actionData.item, actionData.id))
+        return this.httpUserItemServiceRepository.add(factorizeUserItem(actionData['payload']));
+      }
+    )
+  );
+
+  @Effect({ dispatch: false })
+  updateItem = this.actions$.pipe(
+    ofType(EDIT_USER_ITEM),
+    withLatestFrom(this.store.select('item')),
+    switchMap(
+      ([actionData, itemState]) => {
+        return this.httpUserItemServiceRepository.update(factorizeUserItem(actionData['payload']));
       }
     )
   );

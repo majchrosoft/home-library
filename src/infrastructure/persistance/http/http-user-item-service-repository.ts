@@ -21,6 +21,16 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
     )
   }
 
+  update(userItem: UserItem) {
+    return this.http.put(
+      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json',
+      {
+        ...userItem,
+        userId: userDataStorageService.get().id
+      }
+    )
+  }
+
   all() {
     return this.http.get<UserItem[]>(
       'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
