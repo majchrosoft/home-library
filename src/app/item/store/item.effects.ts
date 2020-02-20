@@ -3,18 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
-import {
-  ADD_USER_ITEM,
-  AddEditUserItemPayload,
-  EDIT_USER_ITEM,
-  FETCH_USER_ITEM_LIST,
-  SetUserItemList,
-  STORE_ITEM_LIST
-} from './item.actions';
+import { ADD_USER_ITEM, EDIT_USER_ITEM, FETCH_USER_ITEM_LIST, SetUserItemList } from './item.actions';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { factorizeUserItem, UserItem } from '../user-item.model';
 import { HttpUserItemServiceRepository } from '../../../infrastructure/persistance/http/http-user-item-service-repository';
-import { Item } from '../item.vo';
 
 @Injectable()
 export class ItemEffects {
