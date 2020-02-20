@@ -1,11 +1,11 @@
 import { UserItem } from '../user-item.model';
 
 export interface UserItemServiceRepository {
-  add(userItem: UserItem): void;
+  add(userItem: UserItem);
 
-  remove(userItem: UserItem): void;
+  remove(userItem: UserItem);
 
   ofId(id: string);
 
-  all(): UserItem[];
+  all();
 }
