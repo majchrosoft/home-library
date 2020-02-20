@@ -1,6 +1,6 @@
 import { AuthenticateSuccess } from '../auth-actions';
 import { User } from '../../user-model';
-import { userDataStorageService } from '../../user-data-storage-service';
+import { userDataStorageService } from '../../../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
 
 export const handleAuthentication = (
   expiresIn: number,
@@ -16,7 +16,7 @@ export const handleAuthentication = (
     expirationDate
   );
 
-  userDataStorageService.setUser(user);
+  userDataStorageService.set(user);
 
   return new AuthenticateSuccess({
     email: email,

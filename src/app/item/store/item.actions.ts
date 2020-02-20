@@ -9,17 +9,22 @@ export const SET_USER_ITEM_LIST = '[item] Set List';
 export const FETCH_USER_ITEM_LIST = '[item] Fetch List';
 export const STORE_ITEM_LIST = '[item] Store List';
 
+export class AddEditUserItemPayload {
+  item: Item;
+  id: string | null;
+}
+
 export class AddUserItem implements Action {
   readonly type = ADD_USER_ITEM;
 
-  constructor(public payload: Item) {
+  constructor(public payload: AddEditUserItemPayload) {
   }
 }
 
 export class EditUserItem implements Action {
   readonly type = EDIT_USER_ITEM;
 
-  constructor(public payload: { id: string; newItem: UserItem }) {
+  constructor(public payload: AddEditUserItemPayload) {
   }
 }
 

@@ -8,8 +8,8 @@
  * making writing code as fast as in common approach (using ... operator)
  */
 import { Item } from './item.vo';
-import { userDataStorageService } from '../auth/user-data-storage-service';
 import * as uuid from 'uuid/v4';
+import { userDataStorageService } from '../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
 
 export class UserItem {
   public id: string;
@@ -31,11 +31,21 @@ export class UserItem {
 }
 
 export function factorizeUserItem(
-  item: Item
+  item: Item,
+  idArg: string = null
 ) {
+
+  const id = (() => {
+    if (_.isNull(idArg)) {
+      return uuid()
+    } else {
+      return idArg;
+    }
+  })();
+
   return new UserItem(
-    uuid(),
-    userDataStorageService.getUser().id,
+    id,
+    userDataStorageService.get().id,
     item,
   );
 

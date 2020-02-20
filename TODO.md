@@ -1,3 +1,7 @@
+- prepare sync mechanizm data with server
+
+- prepare local storage for storing items
+
 - extract resource endpoint definition from item.effects.ts to separate definition
 
 - redirect do home when login token expires 

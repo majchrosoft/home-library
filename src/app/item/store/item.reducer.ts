@@ -1,6 +1,6 @@
 import { factorizeUserItem, UserItem } from '../user-item.model';
 import { ADD_USER_ITEM, DELETE_USER_ITEM, EDIT_USER_ITEM, ItemActions, SET_USER_ITEM_LIST } from './item.actions';
-import { userDataStorageService } from '../../auth/user-data-storage-service';
+
 import { Item } from '../item.vo';
 
 export interface ItemState {

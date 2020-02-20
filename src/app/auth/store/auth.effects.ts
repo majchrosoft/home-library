@@ -21,9 +21,9 @@ import {
   AuthSignUpRequestData,
   AuthSignUpResponseData
 } from '../auth.service';
-import { UserData, userDataStorageService } from '../user-data-storage-service';
 import { handleAuthentication } from './auth-effects/handle-authentication';
 import { handleError } from './auth-effects/handle-error';
+import { userDataStorageService } from '../../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
 
 
 export interface AuthResponseData {
@@ -129,31 +129,21 @@ export class AuthEffects {
   autoLogin = this.actions$.pipe(
     ofType(AUTO_LOGIN),
     map(() => {
-      const userData: UserData = userDataStorageService.getUser()
+      const user: User | null = userDataStorageService.get()
 
-      if (!userData) {
+      if (!user) {
         return { type: 'DUMMY' };
       }
 
-      const loadedUser = new User(
-        userData.email,
-        userData.id,
-        userData._token,
-        new Date(userData._tokenExpirationDate)
-      );
+      if (user.token) {
 
-      if (loadedUser.token) {
-        const expirationDuration =
-          new Date(userData._tokenExpirationDate).getTime() -
-          new Date().getTime();
-
-        this.authService.setLogoutTimer(expirationDuration);
+        this.authService.setLogoutTimer(user.expirationDuration);
 
         return new AuthenticateSuccess({
-          email: loadedUser.email,
-          userId: loadedUser.id,
-          token: loadedUser.token,
-          expirationDate: new Date(userData._tokenExpirationDate),
+          email: user.email,
+          userId: user.id,
+          token: user.token,
+          expirationDate: user.expirationDate,
           redirect: false
         });
       }

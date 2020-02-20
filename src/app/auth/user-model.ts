@@ -13,4 +13,13 @@ export class User {
     }
     return this._token;
   }
+
+  get expirationDuration(): number {
+    return new Date(this._tokenExpirationDate).getTime() -
+      new Date().getTime();
+  }
+
+  get expirationDate(): Date {
+    return this._tokenExpirationDate;
+  }
 }
