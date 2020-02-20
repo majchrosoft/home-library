@@ -10,6 +10,7 @@
 import { Item } from './item.vo';
 import * as uuid from 'uuid/v4';
 import { userDataStorageService } from '../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
+import * as _ from 'lodash';
 
 export class UserItem {
   public id: string;

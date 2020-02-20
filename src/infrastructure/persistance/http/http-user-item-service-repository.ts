@@ -16,14 +16,14 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
 
   add(userItem: UserItem): void {
     return this.http.post(
-      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.getUser().id + '/items.json',
+      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json',
       userItem
     )
   }
 
   all(): UserItem[] {
     return this.http.get<UserItem[]>(
-      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.getUser().id + '/items.json'
+      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
     )
   }
 
