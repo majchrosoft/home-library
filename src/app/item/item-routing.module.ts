@@ -9,7 +9,7 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
   {
     path: '',
-    component: ItemComponent,
+    component: ItemListComponent,
     canActivate: [AuthGuard],
     resolve: [ItemResolver],
     children: [
@@ -21,7 +21,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule]
 })
 export class ItemRoutingModule {

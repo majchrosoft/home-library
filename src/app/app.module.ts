@@ -25,12 +25,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    ItemComponent,
-    ItemFormComponent,
-    ItemListComponent,
-    ItemRowComponent,
-    ItemRowTdActionsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
