@@ -8,14 +8,10 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
   {
     path: '',
-    component: ItemListComponent,
     canActivate: [AuthGuard],
-    resolve: [ItemResolver],
+    // resolve: [ItemResolver],
     children: [
-      {
-        path: '', component: ItemListComponent,
-        canActivate: [AuthGuard],
-      },
+      { path: '', component: ItemListComponent },
       { path: 'add', component: ItemFormComponent },
       { path: ':id/edit', component: ItemFormComponent },
     ]

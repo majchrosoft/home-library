@@ -8,6 +8,7 @@ export const handleAuthentication = (
   userId: string,
   token: string
 ) => {
+
   const expirationDate = new Date((new Date()).getTime() + expiresIn * 1000);
   const user = new User(
     email,
