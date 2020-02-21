@@ -16,7 +16,6 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new FetchUserItemList());
   }
 
 }

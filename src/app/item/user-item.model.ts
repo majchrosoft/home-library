@@ -7,7 +7,7 @@
  * It's quite obvious that code shouldn't be fixed to concrete technology, but as beginner i don't know how to that better
  * making writing code as fast as in common approach (using ... operator)
  */
-import { Item } from './item.vo';
+import { Item } from './item-vo';
 import * as uuid from 'uuid/v4';
 import { userDataStorageService } from '../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
 import * as _ from 'lodash';

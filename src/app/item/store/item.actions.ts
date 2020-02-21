@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { UserItem } from '../user-item.model';
-import { Item } from '../item.vo';
+import { Item } from '../item-vo';
 
 export const ADD_USER_ITEM = '[item] Add';
 export const EDIT_USER_ITEM = '[item] Edit';

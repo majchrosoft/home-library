@@ -5,8 +5,7 @@ import { ItemFormComponent } from './item/item-form/item-form.component';
 import { ItemListComponent } from './item/item-list/item-list.component';
 
 const appRoutes: Routes = [
-  { path: 'items/add', component: ItemFormComponent },
-  { path: 'items', component: ItemListComponent },
+  { path: 'items', loadChildren: './items/item-routing.module#ItemRouting' },
   {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule'
