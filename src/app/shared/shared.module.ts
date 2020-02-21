@@ -15,17 +15,18 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
     AlertComponent,
     PlaceholderDirective
   ],
+  imports: [
+    CommonModule
+  ],
   exports: [
     FormMessageComponent,
     FormMessageErrorComponent,
     LoadingSpinnerComponent,
     AlertComponent,
-    PlaceholderDirective
+    PlaceholderDirective,
+    CommonModule
   ],
   entryComponents: [AlertComponent],
-  imports: [
-    CommonModule
-  ]
 })
 export class SharedModule {
 }

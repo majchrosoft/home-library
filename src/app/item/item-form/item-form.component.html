@@ -42,7 +42,7 @@
     <select class="form-control" id="type"
             formControlName="type">
       <option
-        *ngFor="let itemType of itemTypes;"
+        *ngFor="let itemType of itemTypes"
         [value]="itemType"
       >{{itemType}}
       </option>
@@ -57,7 +57,7 @@
             formControlName="quality"
     >
       <option
-        *ngFor="let itemQualityScaleItem of itemQualityScaleList;"
+        *ngFor="let itemQualityScaleItem of itemQualityScaleList"
         [value]="itemQualityScaleItem"
       >{{itemQualityScaleItem}}
       </option>

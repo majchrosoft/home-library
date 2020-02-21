@@ -8,6 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemRowComponent } from './item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item-list/item-row/item-row-td-actions/item-row-td-actions.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [

@@ -27,4 +27,17 @@ export class Item {
     this.type = type;
     this.shelf = shelf;
   }
+
+  public static createEmpty(): Item {
+    return new Item(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      null,
+    )
+  }
 }

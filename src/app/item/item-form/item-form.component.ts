@@ -13,11 +13,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { UserItem } from '../user-item.model';
+import { factorizeUserItem, UserItem } from '../user-item.model';
 import { mapToId } from '../../shared/route-params-helpers';
 import { isNull } from 'util';
 import { AddUserItem, EditUserItem } from '../store/item.actions';
 import { userItemOfId } from '../store/reducer-helpers';
+import { Item } from '../item-vo';
 
 @Component({
   selector: 'app-item-form',
@@ -28,10 +29,10 @@ export class ItemFormComponent implements OnInit {
 
   form: FormGroup;
   formDefinition: ItemFormDefinition;
-  itemTypes: itemTypes[];
-  itemQualityScaleList: itemQualityScale[];
-  shelves: string[];
-  shelveNames: string[];
+  itemTypes: itemTypes[] = [];
+  itemQualityScaleList: itemQualityScale[] = [];
+  shelves: string[] = [];
+  shelveNames: string[] = [];
 
   isEdit(): boolean {
     return !isNull(this.item);
@@ -41,7 +42,7 @@ export class ItemFormComponent implements OnInit {
     return !isNull(this.item) ? this.item.id : null;
   }
 
-  item: UserItem | null;
+  item: UserItem = factorizeUserItem(Item.createEmpty());
 
   constructor(
     private store: Store<AppState>,
