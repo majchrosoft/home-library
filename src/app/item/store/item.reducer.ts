@@ -38,6 +38,8 @@ export function itemReducer(
         ]
       };
     case SET_USER_ITEM_LIST:
+      console.log('state', state);
+      console.log('action.payload', action.payload);
       return {
         ...state,
         itemList: [

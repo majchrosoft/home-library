@@ -7,6 +7,7 @@ import { ADD_USER_ITEM, EDIT_USER_ITEM, FETCH_USER_ITEM_LIST, SetUserItemList } 
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { factorizeUserItem, UserItem } from '../user-item.model';
 import { HttpUserItemServiceRepository } from '../../../infrastructure/persistance/http/http-user-item-service-repository';
+import { setupFirebaseProject } from '@angular/fire/schematics';
 
 @Injectable()
 export class ItemEffects {
@@ -19,7 +20,7 @@ export class ItemEffects {
   ) {
   }
 
-  @Effect({ dispatch: false })
+  @Effect()
   fetchItems = this.actions$.pipe(
     ofType(FETCH_USER_ITEM_LIST),
     switchMap(() => {

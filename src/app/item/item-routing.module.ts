@@ -9,9 +9,9 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    // resolve: [ItemResolver],
+    resolve: [ItemResolver],
     children: [
-      { path: '', component: ItemListComponent },
+      { path: '', component: ItemListComponent, resolve: [ItemResolver] },
       { path: 'add', component: ItemFormComponent },
       { path: ':id/edit', component: ItemFormComponent },
     ]

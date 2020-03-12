@@ -3,6 +3,7 @@ import { UserItem } from '../../../app/item/user-item.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { userDataStorageService } from '../local-storage/local-storage-user-data-repository';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
   all() {
     return this.http.get<UserItem[]>(
       'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
+    ).pipe(
+      map((itemsObject) => {
+        return Object.values(itemsObject);
+      })
     );
   }
 
