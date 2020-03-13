@@ -42,7 +42,11 @@ export class ItemFormComponent implements OnInit {
     return !isNull(this.item) ? this.item.id : null;
   }
 
-  item: UserItem = factorizeUserItem(Item.createEmpty());
+  submitButtonName(): string {
+    return this.isEdit() ? 'Update' : 'Add';
+  }
+
+  item: UserItem | null;
 
   constructor(
     private store: Store<AppState>,
@@ -55,15 +59,11 @@ export class ItemFormComponent implements OnInit {
   onSubmit() {
     if (this.isEdit()) {
       this.store.dispatch(
-        new EditUserItem({
-          ...this.form.value
-        })
+        new EditUserItem(factorizeUserItem(this.form.value, this.id()))
       )
     } else {
       this.store.dispatch(
-        new AddUserItem({
-          ...this.form.value
-        })
+        new AddUserItem(factorizeUserItem(this.form.value))
       )
     }
   }

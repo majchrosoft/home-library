@@ -3,7 +3,10 @@ import { UserItem } from '../../../app/item/user-item.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { userDataStorageService } from '../local-storage/local-storage-user-data-repository';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { ResourcePostResponseBody } from './response/resource-post-response-body';
+import { User } from '../../../app/auth/user-model';
+import { isNull } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,7 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
     return this.http.post(
       'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json',
       userItem
-    )
+    );
   }
 
   update(userItem: UserItem) {
@@ -36,7 +39,8 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
     return this.http.get<UserItem[]>(
       'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
     ).pipe(
-      map((itemsObject) => {
+      map((itemsObjectArg: UserItem[] | null) => {
+        const itemsObject = isNull(itemsObjectArg) ? {} : itemsObjectArg;
         return Object.values(itemsObject);
       })
     );

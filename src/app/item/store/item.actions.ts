@@ -8,23 +8,19 @@ export const DELETE_USER_ITEM = '[item] Delete';
 export const SET_USER_ITEM_LIST = '[item] Set List';
 export const FETCH_USER_ITEM_LIST = '[item] Fetch List';
 export const STORE_ITEM_LIST = '[item] Store List';
-
-export class AddEditUserItemPayload {
-  item: Item;
-  id: string | null;
-}
+export const SETUP_ID = '[item] Setup Id';
 
 export class AddUserItem implements Action {
   readonly type = ADD_USER_ITEM;
 
-  constructor(public payload: AddEditUserItemPayload) {
+  constructor(public payload: UserItem) {
   }
 }
 
 export class EditUserItem implements Action {
   readonly type = EDIT_USER_ITEM;
 
-  constructor(public payload: AddEditUserItemPayload) {
+  constructor(public payload: UserItem) {
   }
 }
 
@@ -50,6 +46,13 @@ export class StoreItemList implements Action {
   readonly type = STORE_ITEM_LIST;
 }
 
+export class SetupId implements Action {
+  readonly type = SETUP_ID;
+
+  constructor(public payload: { id: string, tempId: string }) {
+  }
+}
+
 export type ItemActions =
   | AddUserItem
   | EditUserItem
@@ -57,4 +60,5 @@ export type ItemActions =
   | StoreItemList
   | FetchUserItemList
   | SetUserItemList
+  | SetupId
   ;

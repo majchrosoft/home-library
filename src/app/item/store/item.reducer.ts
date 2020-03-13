@@ -1,7 +1,12 @@
 import { factorizeUserItem, UserItem } from '../user-item.model';
-import { ADD_USER_ITEM, DELETE_USER_ITEM, EDIT_USER_ITEM, ItemActions, SET_USER_ITEM_LIST } from './item.actions';
-
-import { Item } from '../item-vo';
+import {
+  ADD_USER_ITEM,
+  DELETE_USER_ITEM,
+  EDIT_USER_ITEM,
+  ItemActions,
+  SET_USER_ITEM_LIST,
+  SETUP_ID
+} from './item.actions';
 
 export interface ItemState {
   itemList: UserItem[];
@@ -26,7 +31,7 @@ export function itemReducer(
         ...state,
         itemList: [
           ...state.itemList,
-          factorizeUserItem(action.payload.item)
+          action.payload
         ]
       };
     case EDIT_USER_ITEM:
@@ -38,13 +43,30 @@ export function itemReducer(
         ]
       };
     case SET_USER_ITEM_LIST:
-      console.log('state', state);
-      console.log('action.payload', action.payload);
       return {
         ...state,
         itemList: [
           ...state.itemList,
           ...action.payload
+        ]
+      };
+    case SETUP_ID:
+      let itemList = [...state.itemList];
+      console.log('itemList', itemList);
+      console.log('action.payload', action.payload);
+      const itemIndexWithIdToBeSetup = itemList.findIndex((userItem: UserItem) => {
+        return userItem.id === action.payload.tempId;
+      });
+      console.log('itemIndexWithIdToBeSetup', itemIndexWithIdToBeSetup);
+
+      itemList[itemIndexWithIdToBeSetup].id = action.payload.id;
+
+      console.log('itemList after update', itemList);
+
+      return {
+        ...state,
+        itemList: [
+          ...itemList
         ]
       };
     case DELETE_USER_ITEM:
