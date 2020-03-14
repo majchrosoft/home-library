@@ -7,6 +7,8 @@ import {
   SET_USER_ITEM_LIST,
   SETUP_ID
 } from './item.actions';
+import { User } from '../../auth/user-model';
+import { act } from '@ngrx/effects';
 
 export interface ItemState {
   itemList: UserItem[];
@@ -35,11 +37,18 @@ export function itemReducer(
         ]
       };
     case EDIT_USER_ITEM:
+
+      const indexOfEditedItem = state.itemList.findIndex((userItem: UserItem) => {
+        return userItem.id = action.payload.id
+      });
+
+      const newItemList = [...state.itemList];
+      newItemList[indexOfEditedItem] = action.payload;
+
       return {
         ...state,
         itemList: [
-          ...state.itemList,
-          factorizeUserItem(action.payload.item, action.payload.id)
+          ...newItemList
         ]
       };
     case SET_USER_ITEM_LIST:

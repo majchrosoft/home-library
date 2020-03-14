@@ -30,7 +30,6 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
       'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items/' + userItem.id + '.json',
       {
         ...userItem
-        // userId: userDataStorageService.get().id
       }
     )
   }
