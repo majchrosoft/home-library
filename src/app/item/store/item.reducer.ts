@@ -62,16 +62,12 @@ export function itemReducer(
       };
     case SETUP_ID:
       let itemList = [...state.itemList];
-      console.log('itemList', itemList);
-      console.log('action.payload', action.payload);
       const itemIndexWithIdToBeSetup = itemList.findIndex((userItem: UserItem) => {
         return userItem.id === action.payload.tempId;
       });
-      console.log('itemIndexWithIdToBeSetup', itemIndexWithIdToBeSetup);
 
+      //@todo how to do it better - without mutating itemList (just manipulating ...)
       itemList[itemIndexWithIdToBeSetup].id = action.payload.id;
-
-      console.log('itemList after update', itemList);
 
       return {
         ...state,
