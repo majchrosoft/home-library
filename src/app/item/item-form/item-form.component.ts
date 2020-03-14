@@ -59,7 +59,12 @@ export class ItemFormComponent implements OnInit {
   onSubmit() {
     if (this.isEdit()) {
       this.store.dispatch(
-        new EditUserItem(factorizeUserItem(this.form.value, this.id()))
+        new EditUserItem({
+          ...this.item,
+          item: {
+            ...this.form.value
+          }
+        })
       )
     } else {
       this.store.dispatch(

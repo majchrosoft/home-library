@@ -73,7 +73,7 @@ export class ItemEffects {
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
-        return this.httpUserItemServiceRepository.update(factorizeUserItem(actionData['payload']));
+        return this.httpUserItemServiceRepository.update(actionData['payload']);
       }
     )
   );
