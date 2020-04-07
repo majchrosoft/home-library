@@ -40,7 +40,7 @@ export function itemReducer(
 
       //@todo how to do it better - without mutating newItemList (just manipulating ...)
       const indexOfEditedItem = state.itemList.findIndex((userItem: UserItem) => {
-        return userItem.id = action.payload.id
+        return userItem.id == action.payload.id
       });
 
       const newItemList = [...state.itemList];
