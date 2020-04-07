@@ -3,13 +3,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
-import { ADD_USER_ITEM, EDIT_USER_ITEM, FETCH_USER_ITEM_LIST, SetupId, SetUserItemList } from './item.actions';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  ADD_USER_ITEM,
+  EDIT_USER_ITEM,
+  FETCH_USER_ITEM_LIST,
+  SETUP_ID,
+  SetupId,
+  SetUserItemList
+} from './item.actions';
+import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { factorizeUserItem, UserItem } from '../user-item.model';
 import { HttpUserItemServiceRepository } from '../../../infrastructure/persistance/http/http-user-item-service-repository';
 import { setupFirebaseProject } from '@angular/fire/schematics';
 import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
 import { isNull } from 'util';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ItemEffects {
@@ -21,7 +29,8 @@ export class ItemEffects {
     private actions$: Actions,
     private http: HttpClient,
     private store: Store<AppState>,
-    private httpUserItemServiceRepository: HttpUserItemServiceRepository
+    private httpUserItemServiceRepository: HttpUserItemServiceRepository,
+    private router: Router
   ) {
   }
 
@@ -46,7 +55,6 @@ export class ItemEffects {
     switchMap(
       ([actionData, itemState]) => {
         // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
-        console.log(actionData['payload']);
         this.storedUserItem = actionData['payload'];
         return this.httpUserItemServiceRepository.add(this.storedUserItem);
       }
@@ -75,6 +83,17 @@ export class ItemEffects {
       ([actionData, itemState]) => {
         return this.httpUserItemServiceRepository.update(actionData['payload']);
       }
-    )
+    ),
+    tap(() => {
+      this.router.navigate(['/items']);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  redirectToList = this.actions$.pipe(
+    ofType(SETUP_ID),
+    tap(() => {
+      this.router.navigate(['/items']);
+    })
   );
 }
