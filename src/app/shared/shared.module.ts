@@ -5,6 +5,7 @@ import { FormMessageErrorComponent } from './form-message/form-message-error/for
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { AlertComponent } from './alert/alert.component';
 import { PlaceholderDirective } from './placeholder/placeholder.directive';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PlaceholderDirective } from './placeholder/placeholder.directive';
     LoadingSpinnerComponent,
     AlertComponent,
     PlaceholderDirective,
-    CommonModule
+    CommonModule,
+    DataTablesModule
   ],
   entryComponents: [AlertComponent],
 })
