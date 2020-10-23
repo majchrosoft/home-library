@@ -20,12 +20,16 @@ import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { BookcaseComponent } from './bookcase/bookcase.component';
+import { BookcaseListComponent } from './bookcase/bookcase-list/bookcase-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    BookcaseComponent,
+    BookcaseListComponent
   ],
   imports: [
     BrowserModule,

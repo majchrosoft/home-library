@@ -1,5 +1,3 @@
-
- - implement datatable for userItemList, list with search inputs and pagination or simpler pointer 
  - implement flag borrowed
  - make redirection to list after userItem add/update save 
  - implement item /show

@@ -7,27 +7,35 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { ResourcePostResponseBody } from './response/resource-post-response-body';
 import { User } from '../../../app/auth/user-model';
 import { isNull } from 'util';
+import { UserItemUriBuilder } from './uri-builder/user-item-uri-builder';
+import { objectToArrayMapper } from '../../../core/helper/array/mapper/objectToArrayMapper';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpUserItemServiceRepository implements UserItemServiceRepository {
 
+
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userItemUriBuilder: UserItemUriBuilder
   ) {
   }
 
   add(userItem: UserItem) {
     return this.http.post(
-      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json',
+      this.userItemUriBuilder
+        .build(),
       userItem
     );
   }
 
   update(userItem: UserItem) {
     return this.http.put(
-      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items/' + userItem.id + '.json',
+      //create test
+      this.userItemUriBuilder.of(userItem.id).build(),
+      // 'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id  + '/items/' + userItem.id + '.json',
       {
         ...userItem
       }
@@ -36,13 +44,13 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
 
   all() {
     return this.http.get<UserItem[]>(
-      'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
-    ).pipe(
-      map((itemsObjectArg: UserItem[] | null) => {
-        const itemsObject = isNull(itemsObjectArg) ? {} : itemsObjectArg;
-        return Object.values(itemsObject);
-      })
-    );
+      this.userItemUriBuilder.build()
+      // 'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
+    )
+      .pipe(
+        map(objectToArrayMapper)
+      )
+      ;
   }
 
   ofId(id: string) {
