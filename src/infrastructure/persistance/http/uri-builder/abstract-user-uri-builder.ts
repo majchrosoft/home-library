@@ -9,5 +9,6 @@ export class AbstractUserUriBuilder extends AbstractUriBuilder {
     this.with(resourceEnum.users);
     this.of(userDataStorageService.get().id)
   }
-  
+
+
 }

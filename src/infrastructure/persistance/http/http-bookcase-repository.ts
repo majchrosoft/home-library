@@ -12,14 +12,13 @@ import { map } from 'rxjs/operators';
 export class HttpBookcaseRepository implements BookcaseRepository {
 
   constructor(
-    private http: HttpClient,
-    private bookcaseUriBuilder: BookcaseUriBuilder
+    private http: HttpClient
   ) {
   }
 
   add(bookcase: Bookcase) {
     return this.http.post(
-      this.bookcaseUriBuilder
+      BookcaseUriBuilder.aNewUri()
         .build(),
       bookcase
     )
@@ -27,7 +26,7 @@ export class HttpBookcaseRepository implements BookcaseRepository {
 
   all() {
     return this.http.get<Bookcase[]>(
-      this.bookcaseUriBuilder.build()
+      BookcaseUriBuilder.aNewUri().build()
     ).pipe(
       map(
         objectToArrayMapper

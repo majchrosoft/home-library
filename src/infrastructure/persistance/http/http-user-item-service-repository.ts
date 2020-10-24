@@ -2,11 +2,7 @@ import { UserItemServiceRepository } from '../../../app/item/user-item-service/u
 import { UserItem } from '../../../app/item/user-item.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { userDataStorageService } from '../local-storage/local-storage-user-data-repository';
-import { map, switchMap, tap } from 'rxjs/operators';
-import { ResourcePostResponseBody } from './response/resource-post-response-body';
-import { User } from '../../../app/auth/user-model';
-import { isNull } from 'util';
+import { map } from 'rxjs/operators';
 import { UserItemUriBuilder } from './uri-builder/user-item-uri-builder';
 import { objectToArrayMapper } from '../../../core/helper/array/mapper/objectToArrayMapper';
 
@@ -18,14 +14,13 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
 
 
   constructor(
-    private http: HttpClient,
-    private userItemUriBuilder: UserItemUriBuilder
+    private http: HttpClient
   ) {
   }
 
   add(userItem: UserItem) {
     return this.http.post(
-      this.userItemUriBuilder
+      UserItemUriBuilder.aNewUri()
         .build(),
       userItem
     );
@@ -34,7 +29,7 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
   update(userItem: UserItem) {
     return this.http.put(
       //create test
-      this.userItemUriBuilder.of(userItem.id).build(),
+      UserItemUriBuilder.aNewUri().of(userItem.id).build(),
       // 'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id  + '/items/' + userItem.id + '.json',
       {
         ...userItem
@@ -44,7 +39,7 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
 
   all() {
     return this.http.get<UserItem[]>(
-      this.userItemUriBuilder.build()
+      UserItemUriBuilder.aNewUri().build()
       // 'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
     )
       .pipe(

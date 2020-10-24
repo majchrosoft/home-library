@@ -1,13 +1,11 @@
 import { concatenatorArrayReducer } from '../../../../core/helper/array/reducer/concatenatorArrayReducer';
-import { UserItemUriBuilder } from './user-item-uri-builder';
-import { resourceEnum } from './resource-enum';
 
 const DOMAIN = 'https://home-library-d13b5.firebaseio.com';
 const SEPARATOR = '/';
 
 export abstract class AbstractUriBuilder {
 
-  private container: string[];
+  private container: string[] = [];
 
   protected constructor() {
     this.container.push(DOMAIN);
@@ -34,10 +32,6 @@ export abstract class AbstractUriBuilder {
     return this.container.reduce(concatenatorArrayReducer, '');
   }
 
-  protected finalResourceSuffix(): string {
-    return '.json';
-  };
-
   private addSeparator(): void {
     this.container.push(SEPARATOR);
   }
@@ -51,9 +45,9 @@ export abstract class AbstractUriBuilder {
 
   private addJsonSuffix(): void {
     if (this.isLastIsSlash()) {
-      this.container[this.container.length - 1] = this.finalResourceSuffix();
+      this.container[this.container.length - 1] = AbstractUriBuilder.finalResourceSuffix();
     } else {
-      this.push(this.finalResourceSuffix(), false);
+      this.push(AbstractUriBuilder.finalResourceSuffix(), false);
     }
   }
 
@@ -61,5 +55,7 @@ export abstract class AbstractUriBuilder {
     return this.container[this.container.length - 1] === SEPARATOR;
   }
 
-
+  private static finalResourceSuffix(): string {
+    return '.json';
+  };
 }
