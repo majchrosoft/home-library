@@ -9,12 +9,12 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    resolve: [BookcaseResolver],
+    resolve: [BookcaseResolver],//@todo resolve problem with empty bookcase list
     children: [
       {
         path: '',
         component: BookcaseListComponent,
-        resolve: [BookcaseResolver]
+        resolve: [BookcaseResolver]//
       },
       {
         path: 'add',

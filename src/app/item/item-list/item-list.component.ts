@@ -42,5 +42,4 @@ export class ItemListComponent implements OnInit, OnDestroy {
     this.itemsSubscription.unsubscribe();
   }
 
-
 }

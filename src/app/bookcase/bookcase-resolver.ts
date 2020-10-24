@@ -7,7 +7,11 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { BookcaseState } from './store/bookcase.reducer';
 import { BOOKCASE_SET_LIST, BookcaseActionFetchList } from './store/bookcase.actions';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class BookcaseResolver implements Resolve<Bookcase[]> {
   constructor(
     private store: Store<AppState>,

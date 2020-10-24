@@ -1,1 +1,25 @@
-<p>bookcase-form works!</p>
+<form [formGroup]="form">
+  <div class="form-group">
+    <label for="isbn">Name</label>
+    <input type="text" class="form-control" id="name" placeholder="Enter name"
+           formControlName="name">
+
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'name')"
+    ></app-form-message-error>
+
+  </div>
+  <hr/>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="onSubmit()"
+        [innerHTML]="submitButtonName()"
+      >
+      </button>
+    </div>
+  </div>
+
+</form>

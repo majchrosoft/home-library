@@ -11,6 +11,7 @@ import { mapToId } from '../../shared/route-params-helpers';
 import { UserItem } from '../../item/user-item.model';
 import { bookcaseOfId } from '../store/reducer-helpers';
 import { BookcaseActionAdd, BookcaseActionEdit } from '../store/bookcase.actions';
+import { formControlErrorMessages } from '../../shared/form-control-error-messages';
 
 @Component({
   selector: 'app-bookcase-form',
@@ -61,6 +62,10 @@ export class BookcaseFormComponent implements OnInit {
     return this.isEdit() ? 'Update' : 'Add';
   }
 
+  public formControlErrorMessages(formControlName): string[] {
+    return formControlErrorMessages(this.bookcaseFormDefinition, formControlName);
+  }
+
   private subscribeToRouteParameterChanges() {
     this.route.params
       .pipe(
@@ -69,7 +74,7 @@ export class BookcaseFormComponent implements OnInit {
       ).subscribe(
       (bookcase: Bookcase) => {
         this.setBookcase(bookcase);
-        this.initForm(item);
+        this.initForm(bookcase);
       });
   }
 

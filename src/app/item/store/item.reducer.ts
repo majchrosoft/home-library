@@ -7,8 +7,6 @@ import {
   SET_USER_ITEM_LIST,
   SETUP_ID
 } from './item.actions';
-import { User } from '../../auth/user-model';
-import { act } from '@ngrx/effects';
 
 export interface ItemState {
   itemList: UserItem[];

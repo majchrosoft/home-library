@@ -9,7 +9,7 @@ import { HttpBookcaseRepository } from '../../../infrastructure/persistance/http
 import {
   BOOKCASE_ADD,
   BOOKCASE_EDIT,
-  BOOKCASE_FETCH_LIST,
+  BOOKCASE_FETCH_LIST, BOOKCASE_SETUP_ID,
   BookcaseActionSetList,
   BookcaseActionSetupId
 } from './bookcase.actions';
@@ -17,6 +17,7 @@ import { Bookcase } from '../bookcase.model';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
 import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
+import { SETUP_ID } from '../../item/store/item.actions';
 
 @Injectable()
 export class BookcaseEffects {
@@ -36,6 +37,7 @@ export class BookcaseEffects {
   fetchBookcases = this.actions$.pipe(
     ofType(BOOKCASE_FETCH_LIST),
     switchMap(() => {
+      console.log('ASDASDASDASDASDwpada');
       return this.httpBookcaseRepository.all()
     }),
     map(
@@ -72,5 +74,13 @@ export class BookcaseEffects {
     ofType(BOOKCASE_EDIT),
     withLatestFrom(this.store.select('bookcase')),
   )
+
+  @Effect({ dispatch: false })
+  redirectToList = this.actions$.pipe(
+    ofType(BOOKCASE_SETUP_ID),
+    tap(() => {
+      this.router.navigate(['/bookcases']);
+    })
+  );
 
 }

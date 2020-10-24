@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { BookcaseComponent } from './bookcase/bookcase.component';
+import { BookcaseEffects } from './bookcase/store/bookcase.effects';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { BookcaseComponent } from './bookcase/bookcase.component';
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     SharedModule,
-    EffectsModule.forRoot([ItemEffects, AuthEffects]),
+    EffectsModule.forRoot([BookcaseEffects, ItemEffects, AuthEffects]),
   ],
   providers: [
     {

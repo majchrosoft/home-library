@@ -55,6 +55,7 @@ export class ItemEffects {
       ([actionData, itemState]) => {
         // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
         this.storedUserItem = payloadFromActionData(actionData);
+        console.log(this.storedUserItem);
         return this.httpUserItemServiceRepository.add(this.storedUserItem);
       }
     ),
