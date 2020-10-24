@@ -29,7 +29,6 @@ import { BookcaseListComponent } from './bookcase/bookcase-list/bookcase-list.co
     AppComponent,
     HeaderComponent,
     BookcaseComponent,
-    BookcaseListComponent
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,7 @@ export class ItemResolver implements Resolve<UserItem[]> {
         return itemState.itemList;
       }),
       switchMap((items: UserItem[]) => {
+        //@todo check what will happen if there will be 0 items
         if (items.length === 0) {
           this.store.dispatch(new FetchUserItemList());
           return this.actions$.pipe(

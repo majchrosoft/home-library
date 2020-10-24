@@ -12,14 +12,12 @@ import {
   SetUserItemList
 } from './item.actions';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { factorizeUserItem, UserItem } from '../user-item.model';
 import { HttpUserItemServiceRepository } from '../../../infrastructure/persistance/http/http-user-item-service-repository';
-import { setupFirebaseProject } from '@angular/fire/schematics';
 import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
-import { isNull } from 'util';
 import { Router } from '@angular/router';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
+import { UserItem } from '../user-item.model';
 
 @Injectable()
 export class ItemEffects {

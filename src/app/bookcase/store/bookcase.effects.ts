@@ -15,7 +15,6 @@ import {
 } from './bookcase.actions';
 import { Bookcase } from '../bookcase.model';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
-import { UserItem } from '../../item/user-item.model';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
 import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
 
