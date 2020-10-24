@@ -18,6 +18,8 @@ import { setupFirebaseProject } from '@angular/fire/schematics';
 import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
 import { isNull } from 'util';
 import { Router } from '@angular/router';
+import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
+import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
 
 @Injectable()
 export class ItemEffects {
@@ -41,9 +43,8 @@ export class ItemEffects {
       return this.httpUserItemServiceRepository.all()
     }),
     map(
-      (itemsArg: UserItem[] | null) => {
-        const items = isNull(itemsArg) ? [] : itemsArg;
-        return new SetUserItemList(items);
+      (items: UserItem[] | null) => {
+        return new SetUserItemList(nullToEmptyArray(items));
       })
   );
 
@@ -55,7 +56,7 @@ export class ItemEffects {
     switchMap(
       ([actionData, itemState]) => {
         // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
-        this.storedUserItem = actionData['payload'];
+        this.storedUserItem = payloadFromActionData(actionData);
         return this.httpUserItemServiceRepository.add(this.storedUserItem);
       }
     ),
@@ -81,7 +82,7 @@ export class ItemEffects {
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
-        return this.httpUserItemServiceRepository.update(actionData['payload']);
+        return this.httpUserItemServiceRepository.update(payloadFromActionData(actionData));
       }
     ),
     tap(() => {

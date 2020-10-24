@@ -1,3 +1,6 @@
+- implement shelves [NOW]
+- remove action on item and shelves
+
  - implement flag borrowed
  - make redirection to list after userItem add/update save 
  - implement item /show
@@ -7,7 +10,7 @@
 - rebuild error messages - don't use modal, but bootstrap messaging
 - rewrite dynamic error message component in auth component to usual one
 
-- implement shelves
+
 
 - [minor] id should be add on backend and there should be action update id after 200 in state - which actualize id
 frontend shouldn't be possible to change id - it's voulnerable.
