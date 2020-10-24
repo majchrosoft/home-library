@@ -64,7 +64,7 @@ interface formValues {
   shelf: string,
 }
 
-let defaultValues: formValues = {
+const defaultValues: formValues = {
   author: '',
   customId: '',
   description: '',

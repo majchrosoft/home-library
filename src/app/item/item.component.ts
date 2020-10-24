@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../store/app.reducer';
 import { Store } from '@ngrx/store';
-import { FetchUserItemList } from './store/item.actions';
 
 @Component({
   selector: 'app-item',

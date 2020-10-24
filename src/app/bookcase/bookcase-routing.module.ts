@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { BookcaseListComponent } from './bookcase-list/bookcase-list.component';
 import { NgModule } from '@angular/core';
 import { BookcaseResolver } from './bookcase-resolver';
+import { BookcaseFormComponent } from './bookcase-form/bookcase-form.component';
 
 const routes: Routes = [
   {
@@ -17,11 +18,11 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: BookcaseListComponent,
+        component: BookcaseFormComponent,
       },
       {
         path: ':id/edit',
-        component: BookcaseListComponent,
+        component: BookcaseFormComponent,
       }
     ]
   }

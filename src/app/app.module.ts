@@ -15,14 +15,9 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ItemEffects } from './item/store/item.effects';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ItemListComponent } from './item/item-list/item-list.component';
-import { ItemRowComponent } from './item/item-list/item-row/item-row.component';
-import { ItemRowTdActionsComponent } from './item/item-list/item-row/item-row-td-actions/item-row-td-actions.component';
 import { AuthEffects } from './auth/store/auth.effects';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { BookcaseComponent } from './bookcase/bookcase.component';
-import { BookcaseListComponent } from './bookcase/bookcase-list/bookcase-list.component';
-
 
 @NgModule({
   declarations: [
