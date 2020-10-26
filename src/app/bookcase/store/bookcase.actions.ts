@@ -45,13 +45,6 @@ export class BookcaseActionStoreList implements Action {
   readonly type = BOOKCASE_STORE_LIST;
 }
 
-export class BookcaseActionSetupId implements Action {
-  readonly type = BOOKCASE_SETUP_ID;
-
-  constructor(public payload: { id: string, tempId: string }) {
-  }
-}
-
 export type BookcaseActions =
   | BookcaseActionAdd
   | BookcaseActionEdit
@@ -59,5 +52,4 @@ export type BookcaseActions =
   | BookcaseActionSetList
   | BookcaseActionFetchList
   | BookcaseActionStoreList
-  | BookcaseActionSetupId
   ;

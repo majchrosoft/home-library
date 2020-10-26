@@ -8,7 +8,6 @@ import { isNull } from 'util';
 import { Bookcase, factorizeBookcase } from '../bookcase.model';
 import { map, switchMap } from 'rxjs/operators';
 import { mapToId } from '../../shared/route-params-helpers';
-import { UserItem } from '../../item/user-item.model';
 import { bookcaseOfId } from '../store/reducer-helpers';
 import { BookcaseActionAdd, BookcaseActionEdit } from '../store/bookcase.actions';
 import { formControlErrorMessages } from '../../shared/form-control-error-messages';
@@ -40,12 +39,13 @@ export class BookcaseFormComponent implements OnInit {
     if (this.isEdit()) {
       this.store.dispatch(
         new BookcaseActionEdit({
-          ...this.form.value
+          ...this.bookcase,
+          name: this.form.value.name
         })
       )
     } else {
       this.store.dispatch(
-        new BookcaseActionAdd(factorizeBookcase(this.form.value.id, this.form.value.name))
+        new BookcaseActionAdd(factorizeBookcase(this.form.value.name))
       );
     }
   }

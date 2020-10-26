@@ -11,6 +11,7 @@ import { Item } from './item-vo';
 import * as uuid from 'uuid/v4';
 import { userDataStorageService } from '../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
 import * as _ from 'lodash';
+import { generateIdentifier } from '../../core/helper/string/generateIdentifier';
 
 export class UserItem {
   public id: string;
@@ -35,17 +36,8 @@ export function factorizeUserItem(
   item: Item,
   idArg: string = null
 ) {
-
-  const id = (() => {
-    if (_.isNull(idArg)) {
-      return uuid()
-    } else {
-      return idArg;
-    }
-  })();
-
   return new UserItem(
-    id,
+    generateIdentifier(idArg),
     userDataStorageService.get().id,
     item,
   );

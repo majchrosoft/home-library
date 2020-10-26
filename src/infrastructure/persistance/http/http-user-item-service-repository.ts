@@ -19,8 +19,9 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
   }
 
   add(userItem: UserItem) {
-    return this.http.post(
+    return this.http.put(
       UserItemUriBuilder.aNewUri()
+        .of(userItem.id)
         .build(),
       userItem
     );

@@ -1,4 +1,5 @@
 import { userDataStorageService } from '../../infrastructure/persistance/local-storage/local-storage-user-data-repository';
+import { generateIdentifier } from '../../core/helper/string/generateIdentifier';
 
 export class Bookcase {
 
@@ -19,11 +20,11 @@ export class Bookcase {
 }
 
 export function factorizeBookcase(
-  id: string,
-  name: string
+  name: string,
+  id: string | null = null
 ) {
   return new Bookcase(
-    id,
+    generateIdentifier(id),
     name,
     userDataStorageService.get().id,
   )

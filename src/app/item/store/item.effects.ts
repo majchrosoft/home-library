@@ -7,8 +7,6 @@ import {
   ADD_USER_ITEM,
   EDIT_USER_ITEM,
   FETCH_USER_ITEM_LIST,
-  SETUP_ID,
-  SetupId,
   SetUserItemList
 } from './item.actions';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -18,6 +16,7 @@ import { Router } from '@angular/router';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
 import { UserItem } from '../user-item.model';
+import { ofProperty } from '../../../core/helper/array/ofProperty';
 
 @Injectable()
 export class ItemEffects {
@@ -47,31 +46,18 @@ export class ItemEffects {
   );
 
 
-  @Effect()
+  @Effect({ dispatch: false })
   storeItem = this.actions$.pipe(
     ofType(ADD_USER_ITEM),
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
-        // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
-        this.storedUserItem = payloadFromActionData(actionData);
-        console.log(this.storedUserItem);
-        return this.httpUserItemServiceRepository.add(this.storedUserItem);
+        const storedUserItem = payloadFromActionData(actionData);
+        return this.httpUserItemServiceRepository.add(storedUserItem);
       }
     ),
-    map((
-      response: ResourcePostResponseBody,
-    ) => {
-      const toBeReturned = new SetupId({
-        id: response.name,
-        tempId: this.storedUserItem.id
-      });
-
-      // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
-      this.storedUserItem = null;
-
-      return toBeReturned;
-
+    tap(() => {
+      this.router.navigate(['/items']);
     })
   );
 
@@ -88,12 +74,20 @@ export class ItemEffects {
       this.router.navigate(['/items']);
     })
   );
-
-  @Effect({ dispatch: false })
-  redirectToList = this.actions$.pipe(
-    ofType(SETUP_ID),
-    tap(() => {
-      this.router.navigate(['/items']);
-    })
-  );
+  //
+  // @Effect({ dispatch: false })
+  // updateItemIdAndRedirectToList = this.actions$.pipe(
+  //   ofType(SETUP_ID),
+  //   withLatestFrom(this.store.select('item')),
+  //   switchMap(
+  //     ([actionData, itemState]) => {
+  //       const userItemId: string = payloadFromActionData(actionData).id;
+  //       const userItemWithIdActualized = ofProperty(itemState.itemList, 'id', userItemId);
+  //       return this.httpUserItemServiceRepository.update(userItemWithIdActualized);
+  //     }
+  //   ),
+  //   tap(() => {
+  //     this.router.navigate(['/items']);
+  //   })
+  // );
 }

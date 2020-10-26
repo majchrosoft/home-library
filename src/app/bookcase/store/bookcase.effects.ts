@@ -9,15 +9,12 @@ import { HttpBookcaseRepository } from '../../../infrastructure/persistance/http
 import {
   BOOKCASE_ADD,
   BOOKCASE_EDIT,
-  BOOKCASE_FETCH_LIST, BOOKCASE_SETUP_ID,
+  BOOKCASE_FETCH_LIST,
   BookcaseActionSetList,
-  BookcaseActionSetupId
 } from './bookcase.actions';
 import { Bookcase } from '../bookcase.model';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
-import { ResourcePostResponseBody } from '../../../infrastructure/persistance/http/response/resource-post-response-body';
-import { SETUP_ID } from '../../item/store/item.actions';
 
 @Injectable()
 export class BookcaseEffects {
@@ -37,7 +34,6 @@ export class BookcaseEffects {
   fetchBookcases = this.actions$.pipe(
     ofType(BOOKCASE_FETCH_LIST),
     switchMap(() => {
-      console.log('ASDASDASDASDASDwpada');
       return this.httpBookcaseRepository.all()
     }),
     map(
@@ -47,7 +43,7 @@ export class BookcaseEffects {
     )
   )
 
-  @Effect()
+  @Effect({ dispatch: false })
   storeItem = this.actions$.pipe(
     ofType(BOOKCASE_ADD),
     withLatestFrom(this.store.select('bookcase')),
@@ -57,30 +53,38 @@ export class BookcaseEffects {
         return this.httpBookcaseRepository.add(this.storedBookcase);
       }
     ),
-    map(
-      (response: ResourcePostResponseBody) => {
-        const toBeReturned = new BookcaseActionSetupId({
-          id: response.name,
-          tempId: this.storedBookcase.id
-        });
-        this.storedBookcase = null;
-        return toBeReturned;
-      }
-    )
-  )
-
-  @Effect()
-  updateItem = this.actions$.pipe(
-    ofType(BOOKCASE_EDIT),
-    withLatestFrom(this.store.select('bookcase')),
-  )
-
-  @Effect({ dispatch: false })
-  redirectToList = this.actions$.pipe(
-    ofType(BOOKCASE_SETUP_ID),
     tap(() => {
       this.router.navigate(['/bookcases']);
     })
-  );
+  )
+
+  @Effect()
+  updateBookcase = this.actions$.pipe(
+    ofType(BOOKCASE_EDIT),
+    withLatestFrom(this.store.select('bookcase')), switchMap(
+      ([actionData, bookcaseState]) => {
+        //@todo asks how to describe actionData type
+        return this.httpBookcaseRepository.update(payloadFromActionData(actionData));
+      }
+    ),
+    tap(() => {
+      this.router.navigate(['/items']);
+    })
+  )
+
+  @Effect()
+  updateBookcaseId = this.actions$.pipe(
+    ofType(BOOKCASE_EDIT),
+    withLatestFrom(this.store.select('bookcase')), switchMap(
+      ([actionData, bookcaseState]) => {
+        //@todo asks how to describe actionData type
+        const bookcase: Bookcase = payloadFromActionData(actionData);
+        return this.httpBookcaseRepository.update(bookcase);
+      }
+    ),
+    tap(() => {
+      this.router.navigate(['/items']);
+    })
+  )
 
 }

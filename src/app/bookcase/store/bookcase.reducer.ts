@@ -4,9 +4,9 @@ import {
   BOOKCASE_DELETE,
   BOOKCASE_EDIT,
   BOOKCASE_SET_LIST,
-  BOOKCASE_SETUP_ID,
   BookcaseActions
 } from './bookcase.actions';
+import { indexOfProperty } from '../../../core/helper/array/ofProperty';
 
 export interface BookcaseState {
   bookcaseList: Bookcase[];
@@ -58,20 +58,6 @@ export function bookcaseReducer(
           ...action.payload
         ]
       }
-    case BOOKCASE_SETUP_ID:
-      let bookcaseList = [...state.bookcaseList];
-      const bookcaseIndexWithIdToBeSetup = bookcaseList.findIndex((bookcase: Bookcase) => {
-        return bookcase.id === action.payload.tempId;
-      })
-
-      bookcaseList[bookcaseIndexWithIdToBeSetup].id = action.payload.id
-
-      return {
-        ...state,
-        bookcaseList: [
-          ...bookcaseList
-        ]
-      };
     case BOOKCASE_DELETE:
       return { ...state };
     default:

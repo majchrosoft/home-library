@@ -5,8 +5,8 @@ import {
   EDIT_USER_ITEM,
   ItemActions,
   SET_USER_ITEM_LIST,
-  SETUP_ID
 } from './item.actions';
+import { indexOfProperty } from '../../../core/helper/array/ofProperty';
 
 export interface ItemState {
   itemList: UserItem[];
@@ -35,14 +35,11 @@ export function itemReducer(
         ]
       };
     case EDIT_USER_ITEM:
-
-      //@todo how to do it better - without mutating newItemList (just manipulating ...)
-      const indexOfEditedItem = state.itemList.findIndex((userItem: UserItem) => {
-        return userItem.id == action.payload.id
-      });
+      const indexOfEditedItem = indexOfProperty<UserItem, string>(state.itemList, 'id', action.payload.id);
+      const userItem: UserItem = action.payload;
 
       const newItemList = [...state.itemList];
-      newItemList[indexOfEditedItem] = action.payload;
+      newItemList[indexOfEditedItem] = userItem;
 
       return {
         ...state,
@@ -56,21 +53,6 @@ export function itemReducer(
         itemList: [
           ...state.itemList,
           ...action.payload
-        ]
-      };
-    case SETUP_ID:
-      let itemList = [...state.itemList];
-      const itemIndexWithIdToBeSetup = itemList.findIndex((userItem: UserItem) => {
-        return userItem.id === action.payload.tempId;
-      });
-
-      //@todo how to do it better - without mutating itemList (just manipulating ...)
-      itemList[itemIndexWithIdToBeSetup].id = action.payload.id;
-
-      return {
-        ...state,
-        itemList: [
-          ...itemList
         ]
       };
     case DELETE_USER_ITEM:
