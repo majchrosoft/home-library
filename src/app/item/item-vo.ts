@@ -5,7 +5,7 @@ export class Item {
   public description: string;
   public author: string;
   public type: string;
-  public shelf: string | null;
+  public bookcase: string | null;
 
   constructor(
     isbn: string,
@@ -14,7 +14,7 @@ export class Item {
     description: string,
     author: string,
     type: string,
-    shelf: string | null,
+    bookcase: string | null,
   ) {
     this.isbn = isbn;
     this.quality = quality;
@@ -22,7 +22,7 @@ export class Item {
     this.description = description;
     this.author = author;
     this.type = type;
-    this.shelf = shelf;
+    this.bookcase = bookcase;
   }
 
   public static createEmpty(): Item {

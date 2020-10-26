@@ -57,18 +57,18 @@
     ></app-form-message-error>
   </div>
   <div class="form-group">
-    <label for="shelf">Shelf</label>
-    <select class="form-control" id="shelf"
-            formControlName="shelf"
+    <label for="bookcase">Bookcase</label>
+    <select class="form-control" id="bookcase"
+            formControlName="bookcase"
     >
       <option
-        *ngFor="let shelf of shelves; let i = index"
-        [value]="shelf"
-      >{{shelveNames[i]}}
+        *ngFor="let bookcase of bookcases; let i = index"
+        [value]="bookcase"
+      >{{bookcasesNames[i]}}
       </option>
     </select>
     <app-form-message-error
-      [errors]="formControlErrorMessages( 'shelf')"
+      [errors]="formControlErrorMessages( 'bookcase')"
     ></app-form-message-error>
   </div>
   <hr/>

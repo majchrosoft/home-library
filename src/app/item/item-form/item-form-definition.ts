@@ -60,7 +60,7 @@ interface formValues {
   description: string,
   author: string,
   type: string,
-  shelf: string,
+  bookcase: string,
 }
 
 const defaultValues: formValues = {
@@ -68,7 +68,7 @@ const defaultValues: formValues = {
   description: '',
   isbn: '',
   quality: itemQualityScale.Good,
-  shelf: '',
+  bookcase: '',
   title: '',
   type: itemTypes.Book
 };
@@ -82,7 +82,7 @@ export function controls(values: formValues) {
     description: new FormControl(values.description, Validators.required),
     author: new FormControl(values.author, Validators.required),
     type: new FormControl(values.type, Validators.required),
-    shelf: new FormControl(values.shelf),
+    bookcase: new FormControl(values.bookcase),
   };
 }
 
@@ -107,7 +107,7 @@ export class ItemFormDefinition implements FormDefinition {
       description: isNull(userItem.item.description) ? '' : userItem.item.description,
       author: isNull(userItem.item.author) ? '' : userItem.item.author,
       type: isNull(userItem.item.type) ? '' : userItem.item.type,
-      shelf: isNull(userItem.item.shelf) ? '' : userItem.item.shelf,
+      bookcase: isNull(userItem.item.bookcase) ? '' : userItem.item.bookcase,
     };
     this.formGroup = new FormGroup(controls(values));
 
