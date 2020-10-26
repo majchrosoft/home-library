@@ -58,7 +58,7 @@ export class BookcaseEffects {
     })
   )
 
-  @Effect()
+  @Effect({ dispatch: false })
   updateBookcase = this.actions$.pipe(
     ofType(BOOKCASE_EDIT),
     withLatestFrom(this.store.select('bookcase')), switchMap(
@@ -68,22 +68,7 @@ export class BookcaseEffects {
       }
     ),
     tap(() => {
-      this.router.navigate(['/items']);
-    })
-  )
-
-  @Effect()
-  updateBookcaseId = this.actions$.pipe(
-    ofType(BOOKCASE_EDIT),
-    withLatestFrom(this.store.select('bookcase')), switchMap(
-      ([actionData, bookcaseState]) => {
-        //@todo asks how to describe actionData type
-        const bookcase: Bookcase = payloadFromActionData(actionData);
-        return this.httpBookcaseRepository.update(bookcase);
-      }
-    ),
-    tap(() => {
-      this.router.navigate(['/items']);
+      this.router.navigate(['/bookcases']);
     })
   )
 

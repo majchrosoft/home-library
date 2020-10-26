@@ -57,7 +57,6 @@ interface formValues {
   isbn: string,
   quality: string,
   title: string,
-  customId: string,
   description: string,
   author: string,
   type: string,
@@ -66,7 +65,6 @@ interface formValues {
 
 const defaultValues: formValues = {
   author: '',
-  customId: '',
   description: '',
   isbn: '',
   quality: itemQualityScale.Good,
@@ -81,7 +79,6 @@ export function controls(values: formValues) {
     isbn: new FormControl(values.isbn, Validators.pattern(isbnRegex)),
     quality: new FormControl(values.quality, [Validators.required, Validators.pattern('^[0-9]*$')]),
     title: new FormControl(values.title, Validators.required),
-    customId: new FormControl(values.customId),
     description: new FormControl(values.description, Validators.required),
     author: new FormControl(values.author, Validators.required),
     type: new FormControl(values.type, Validators.required),
@@ -107,7 +104,6 @@ export class ItemFormDefinition implements FormDefinition {
       isbn: isNull(userItem.item.isbn) ? '' : userItem.item.isbn,
       quality: isNull(userItem.item.quality) ? '' : userItem.item.quality,
       title: isNull(userItem.item.title) ? '' : userItem.item.title,
-      customId: isNull(userItem.item.customId) ? '' : userItem.item.customId,
       description: isNull(userItem.item.description) ? '' : userItem.item.description,
       author: isNull(userItem.item.author) ? '' : userItem.item.author,
       type: isNull(userItem.item.type) ? '' : userItem.item.type,

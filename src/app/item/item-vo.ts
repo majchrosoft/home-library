@@ -2,7 +2,6 @@ export class Item {
   public isbn: string;
   public quality: string;
   public title: string;
-  public customId: string;
   public description: string;
   public author: string;
   public type: string;
@@ -12,7 +11,6 @@ export class Item {
     isbn: string,
     quality: string,
     title: string,
-    customId: string,
     description: string,
     author: string,
     type: string,
@@ -21,7 +19,6 @@ export class Item {
     this.isbn = isbn;
     this.quality = quality;
     this.title = title;
-    this.customId = customId;
     this.description = description;
     this.author = author;
     this.type = type;
@@ -30,7 +27,6 @@ export class Item {
 
   public static createEmpty(): Item {
     return new Item(
-      '',
       '',
       '',
       '',
