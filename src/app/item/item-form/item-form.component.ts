@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import {
   ItemFormDefinition,
@@ -19,20 +19,24 @@ import { isNull } from 'util';
 import { AddUserItem, EditUserItem } from '../store/item.actions';
 import { userItemOfId } from '../store/reducer-helpers';
 import { Item } from '../item-vo';
+import { ItemState } from '../store/item.reducer';
+import { Subscription } from 'rxjs';
+import { BookcaseState } from '../../bookcase/store/bookcase.reducer';
+import { Bookcase } from '../../bookcase/bookcase.model';
 
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.css']
 })
-export class ItemFormComponent implements OnInit {
+export class ItemFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   formDefinition: ItemFormDefinition;
   itemTypes: itemTypes[] = [];
   itemQualityScaleList: itemQualityScale[] = [];
-  bookcases: string[] = [];
-  bookcasesNames: string[] = [];
+  bookcases: Bookcase[] = [];
+  bookcaseSubscription: Subscription;
 
   isEdit(): boolean {
     return !isNull(this.item);
@@ -78,6 +82,24 @@ export class ItemFormComponent implements OnInit {
     this.itemTypes = itemTypesArray;
     this.itemQualityScaleList = itemQualityScaleList;
     this.subscribeToRouteParameterChanges();
+
+    this.bookcaseSubscription = this.store
+      .select('bookcase')
+      .pipe(
+        map(
+          (bookcaseState: BookcaseState) => {
+            return bookcaseState.bookcaseList;
+          }
+        )
+      ).subscribe(
+        (bookcases: Bookcase[]) => {
+          this.bookcases = bookcases;
+        }
+      )
+  }
+
+  ngOnDestroy(): void {
+    this.bookcaseSubscription.unsubscribe();
   }
 
   public formControlErrorMessages(formControlName): string[] {

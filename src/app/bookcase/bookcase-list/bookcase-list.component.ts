@@ -37,7 +37,7 @@ export class BookcaseListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.bookcasesSubscription.unsubscribe()
+    this.bookcasesSubscription.unsubscribe();
   }
 
 }

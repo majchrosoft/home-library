@@ -62,9 +62,9 @@
             formControlName="bookcase"
     >
       <option
-        *ngFor="let bookcase of bookcases; let i = index"
-        [value]="bookcase"
-      >{{bookcasesNames[i]}}
+        *ngFor="let bookcase of bookcases;"
+        [value]="bookcase.id"
+      >{{bookcase.name}}
       </option>
     </select>
     <app-form-message-error
