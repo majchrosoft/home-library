@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
 import {
-  ADD_USER_ITEM,
+  ADD_USER_ITEM, DELETE_USER_ITEM,
   EDIT_USER_ITEM,
   FETCH_USER_ITEM_LIST,
   SetUserItemList
@@ -74,20 +74,16 @@ export class ItemEffects {
       this.router.navigate(['/items']);
     })
   );
-  //
-  // @Effect({ dispatch: false })
-  // updateItemIdAndRedirectToList = this.actions$.pipe(
-  //   ofType(SETUP_ID),
-  //   withLatestFrom(this.store.select('item')),
-  //   switchMap(
-  //     ([actionData, itemState]) => {
-  //       const userItemId: string = payloadFromActionData(actionData).id;
-  //       const userItemWithIdActualized = ofProperty(itemState.itemList, 'id', userItemId);
-  //       return this.httpUserItemServiceRepository.update(userItemWithIdActualized);
-  //     }
-  //   ),
-  //   tap(() => {
-  //     this.router.navigate(['/items']);
-  //   })
-  // );
+
+  @Effect({ dispatch: false })
+  removeItem = this.actions$.pipe(
+    ofType(DELETE_USER_ITEM),
+    withLatestFrom(this.store.select('item')),
+    switchMap(
+      ([actionData, itemState]) => {
+        return this.httpUserItemServiceRepository.remove(payloadFromActionData(actionData));
+      }
+    )
+  );
+
 }

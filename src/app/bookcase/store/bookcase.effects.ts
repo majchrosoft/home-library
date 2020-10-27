@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { HttpBookcaseRepository } from '../../../infrastructure/persistance/http/http-bookcase-repository';
 import {
-  BOOKCASE_ADD,
+  BOOKCASE_ADD, BOOKCASE_DELETE,
   BOOKCASE_EDIT,
   BOOKCASE_FETCH_LIST,
   BookcaseActionSetList,
@@ -15,6 +15,7 @@ import {
 import { Bookcase } from '../bookcase.model';
 import { nullToEmptyArray } from '../../../core/helper/array/nullToEmptyArray';
 import { payloadFromActionData } from '../../../core/store/payloadFromActionData';
+import { DELETE_USER_ITEM } from '../../item/store/item.actions';
 
 @Injectable()
 export class BookcaseEffects {
@@ -44,11 +45,11 @@ export class BookcaseEffects {
   )
 
   @Effect({ dispatch: false })
-  storeItem = this.actions$.pipe(
+  bookcaseStore = this.actions$.pipe(
     ofType(BOOKCASE_ADD),
     withLatestFrom(this.store.select('bookcase')),
     switchMap(
-      ([actionData, itemState]) => {
+      ([actionData, bookcaseState]) => {
         this.storedBookcase = payloadFromActionData(actionData);
         return this.httpBookcaseRepository.add(this.storedBookcase);
       }
@@ -71,5 +72,16 @@ export class BookcaseEffects {
       this.router.navigate(['/bookcases']);
     })
   )
+
+  @Effect({ dispatch: false })
+  removeBookcase = this.actions$.pipe(
+    ofType(BOOKCASE_DELETE),
+    withLatestFrom(this.store.select('bookcase')),
+    switchMap(
+      ([actionData, itemState]) => {
+        return this.httpBookcaseRepository.remove(payloadFromActionData(actionData));
+      }
+    )
+  );
 
 }

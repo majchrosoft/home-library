@@ -30,8 +30,6 @@ export class ItemRowComponent implements OnInit, OnDestroy {
       .select('bookcase')
       .pipe(
         map((bookcaseState: BookcaseState) => {
-          console.log('bookcaseState:');
-          console.log(bookcaseState);
           return bookcaseState.bookcaseList;
         })
       ).subscribe(

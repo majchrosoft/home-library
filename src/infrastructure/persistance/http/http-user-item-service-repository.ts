@@ -41,7 +41,6 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
   all() {
     return this.http.get<UserItem[]>(
       UserItemUriBuilder.aNewUri().build()
-      // 'https://home-library-d13b5.firebaseio.com/users/' + userDataStorageService.get().id + '/items.json'
     )
       .pipe(
         map(objectToArrayMapper)
@@ -52,7 +51,10 @@ export class HttpUserItemServiceRepository implements UserItemServiceRepository 
   ofId(id: string) {
   }
 
-  remove(userItem: UserItem): void {
+  remove(id: string) {
+    return this.http.delete(
+      UserItemUriBuilder.aNewUri().of(id).build()
+    );
   }
 
 }

@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserItem } from '../../../user-item.model';
+import { DeleteItem, FETCH_USER_ITEM_LIST } from '../../../store/item.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../store/app.reducer';
 
 @Component({
   selector: '[app-item-row-td-actions]',
@@ -10,10 +13,16 @@ export class ItemRowTdActionsComponent implements OnInit {
 
   @Input('item') item: UserItem;
 
-  constructor() {
+  constructor(
+    private store: Store<AppState>
+  ) {
   }
 
   ngOnInit() {
+  }
+
+  remove() {
+    this.store.dispatch(new DeleteItem(this.item.id));
   }
 
 }

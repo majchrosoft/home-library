@@ -7,6 +7,8 @@ import {
   BookcaseActions
 } from './bookcase.actions';
 import { indexOfProperty } from '../../../core/helper/array/ofProperty';
+import { DELETE_USER_ITEM } from '../../item/store/item.actions';
+import { UserItem } from '../../item/user-item.model';
 
 export interface BookcaseState {
   bookcaseList: Bookcase[];
@@ -59,7 +61,13 @@ export function bookcaseReducer(
         ]
       }
     case BOOKCASE_DELETE:
-      return { ...state };
+      return {
+        ...state,
+        bookcaseList:
+          state.bookcaseList.filter(function(bookcase: Bookcase) {
+            return bookcase.id !== action.payload;
+          })
+      }
     default:
       return state;
   }

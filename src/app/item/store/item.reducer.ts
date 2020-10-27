@@ -56,7 +56,13 @@ export function itemReducer(
         ]
       };
     case DELETE_USER_ITEM:
-      return { ...state };
+      return {
+        ...state,
+        itemList:
+          state.itemList.filter(function(userItem: UserItem) {
+            return userItem.id !== action.payload;
+          })
+      }
     default:
       return state;
   }

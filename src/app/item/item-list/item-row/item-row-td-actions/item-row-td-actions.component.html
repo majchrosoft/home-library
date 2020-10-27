@@ -1,4 +1,8 @@
 <a routerLink="/items/{{item.id}}/show" href="#">Show</a>&nbsp; | &nbsp;
 <a routerLink="/items/{{item.id}}/edit" href="#">Edit</a>&nbsp; | &nbsp;
-<a routerLink="/items/{{item.id}}/remove" href="#">Remove</a>
+<button
+  class="btn-danger"
+  (click)="remove()"
+>Remove
+</button>
 

@@ -5,8 +5,6 @@ import { BookcaseUriBuilder } from './uri-builder/bookcase-uri-builder';
 import { Bookcase } from '../../../app/bookcase/bookcase.model';
 import { objectToArrayMapper } from '../../../core/helper/array/mapper/objectToArrayMapper';
 import { map } from 'rxjs/operators';
-import { UserItem } from '../../../app/item/user-item.model';
-import { UserItemUriBuilder } from './uri-builder/user-item-uri-builder';
 
 @Injectable({
   providedIn: 'root'
@@ -53,7 +51,14 @@ export class HttpBookcaseRepository implements BookcaseRepository {
   ofId(id: string) {
   }
 
-  remove(bookcase: Bookcase): void {
+  remove(id: string) {
+    return this.http.delete(
+      //create test
+      BookcaseUriBuilder
+        .aNewUri()
+        .of(id)
+        .build()
+    )
   }
 
 }
