@@ -9,8 +9,7 @@ export function factorizeBorrowFormGroupFromEntity(borrow: Borrow | null): FormG
 }
 
 interface BorrowFormValues {
-  isBorrowed: boolean;
-  expectedEndAt: string;
+  expectedEndAt: number;
   borrowerEmail: string;
   borrowerName: string;
   borrowerData: string;
@@ -18,15 +17,13 @@ interface BorrowFormValues {
 
 class BorrowFormDefinition implements BorrowFormValues {
 
-  public isBorrowed: boolean;
-  public expectedEndAt: string;
+  public expectedEndAt: number;
   public borrowerEmail: string;
   public borrowerName: string;
   public borrowerData: string;
 
   constructor(borrow: Borrow) {
-    this.isBorrowed = borrow.isBorrowed;
-    this.expectedEndAt = isNull(borrow.expectedEndAt) ? '' : borrow.expectedEndAt + '';
+    this.expectedEndAt = isNull(borrow.expectedEndAt) ? +Date.now() : borrow.expectedEndAt;
     this.borrowerEmail = nullCoalesce(borrow.borrowerEmail);
     this.borrowerName = nullCoalesce(borrow.borrowerName);
     this.borrowerData = nullCoalesce(borrow.borrowerData);
@@ -35,10 +32,8 @@ class BorrowFormDefinition implements BorrowFormValues {
 
 function factorizeBorrowFormGroup(values: BorrowFormValues): FormGroup {
   return new FormGroup({
-
-    isBorrowed: new FormControl(values.isBorrowed, Validators.required),
-    expectedEndAt: new FormControl(values.expectedEndAt),
-    borrowerEmail: new FormControl(values.borrowerEmail),
+    expectedEndAt: new FormControl(new Date(values.expectedEndAt)),
+    borrowerEmail: new FormControl(values.borrowerEmail, Validators.email),
     borrowerName: new FormControl(values.borrowerName),
     borrowerData: new FormControl(values.borrowerData),
   });

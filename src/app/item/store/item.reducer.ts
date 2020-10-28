@@ -40,7 +40,6 @@ export function itemReducer(
     case ITEM_ACTION_GIVE_BACK_BORROWED:
       const indexOfEditedItem = indexOfProperty<UserItem, string>(state.itemList, 'id', action.payload.id);
       const userItem: UserItem = action.payload;
-
       const newItemList = [...state.itemList];
       newItemList[indexOfEditedItem] = userItem;
 

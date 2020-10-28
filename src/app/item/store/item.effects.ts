@@ -64,13 +64,13 @@ export class ItemEffects {
   @Effect({ dispatch: false })
   updateItem = this.actions$.pipe(
     ofType(
-      EDIT_USER_ITEM ||
-      ITEM_ACTION_BORROW ||
-      ITEM_ACTION_GIVE_BACK_BORROWED
-    ),
+      EDIT_USER_ITEM,
+      ITEM_ACTION_BORROW,
+      ITEM_ACTION_GIVE_BACK_BORROWED),
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
+        console.log('effect update works');
         return this.httpUserItemServiceRepository.update(payloadFromActionData(actionData));
       }
     ),

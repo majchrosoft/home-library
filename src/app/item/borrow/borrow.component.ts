@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserItem } from '../user-item.model';
 import { Store } from '@ngrx/store';
@@ -13,34 +13,32 @@ import { userItemOfId } from '../store/reducer-helpers';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromIdToUserItemSwitcher } from '../store/helpers/fromIdToUserItemSwitcher';
 import { fromRouteParameterToUserItemSwitcher } from '../store/helpers/fromRouteParameterToUserItemSwitcher';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-borrow',
   templateUrl: './borrow.component.html',
   styleUrls: ['./borrow.component.css']
 })
-export class BorrowComponent implements OnInit {
+export class BorrowComponent implements OnInit, OnDestroy {
+
+  routeParameterSubscription: Subscription;
 
   public controlNames: string[] = [
-    'Expected end at',
     'Borrower email',
     'Borrower name',
     'Borrower data',
   ];
 
   public controls: string[] = [
-    'isBorrowed',
-    'expectedEndAt',
     'borrowerEmail',
     'borrowerName',
+    'borrowerData',
   ];
 
-  public controlPlaceholders: string[] = [
-    'Expected end at',
-    'Borrower email',
-    'Borrower name',
-    'Borrower data',
-  ];
+  public controlPlaceholders: string[] = this.controlNames.map((name) => {
+    return 'Enter ' + name;
+  });
 
   form: FormGroup;
   userItem: UserItem;
@@ -56,33 +54,37 @@ export class BorrowComponent implements OnInit {
     this.subscribeToRouteParameterChanges();
   }
 
-  onSubmit() {
+  ngOnDestroy(): void {
+    this.routeParameterSubscription.unsubscribe();
+  }
 
+  onSubmit() {
     this.store.dispatch(
       new ItemActionBorrow({
         ...this.userItem,
         borrow: {
           ...this.userItem.borrow,
-          ...this.form.value
+          isBorrowed: true,
+          startAt: +Date.now(),
+          expectedEndAt: +this.form.value.expectedEndAt,
+          borrowerName: this.form.value.borrowerName,
+          borrowerEmail: this.form.value.borrowerEmail,
+          borrowerData: this.form.value.borrowerData,
         }
-
       })
-    )
+    );
   }
 
   private initForm() {
-    this.form = factorizeBorrowFormGroupFromEntity(this.userItem.borrow);
+    this.form = factorizeBorrowFormGroupFromEntity(this.userItem.borrow === undefined ? null : this.userItem.borrow);
   }
 
   private subscribeToRouteParameterChanges() {
-    console.log('fromRouteParameterToUserIdSwitcher:');
-    fromRouteParameterToUserItemSwitcher(
+    this.routeParameterSubscription = fromRouteParameterToUserItemSwitcher(
       this.route.params,
       this.store
     ).subscribe(
       (userItem: UserItem) => {
-        console.log('userItem:');
-        console.log(userItem);
         this.userItem = userItem;
         this.initForm();
       });

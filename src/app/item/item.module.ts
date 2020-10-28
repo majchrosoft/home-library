@@ -9,6 +9,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ItemRowComponent } from './item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item-list/item-row/item-row-td-actions/item-row-td-actions.component';
 import { BorrowComponent } from './borrow/borrow.component';
+import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { BorrowComponent } from './borrow/borrow.component';
     RouterModule,
     ReactiveFormsModule,
     ItemRoutingModule,
-    SharedModule
+    SharedModule,
+    DlDateTimeDateModule,
+    DlDateTimePickerModule
   ]
 })
 export class ItemModule {
