@@ -7,6 +7,8 @@ export const DELETE_USER_ITEM = '[item] Delete';
 export const SET_USER_ITEM_LIST = '[item] Set List';
 export const FETCH_USER_ITEM_LIST = '[item] Fetch List';
 export const STORE_ITEM_LIST = '[item] Store List';
+export const ITEM_ACTION_BORROW = '[item] Borrow';
+export const ITEM_ACTION_GIVE_BACK_BORROWED = '[item] Give Back Borrowed';
 
 export class AddUserItem implements Action {
   readonly type = ADD_USER_ITEM;
@@ -44,6 +46,20 @@ export class StoreItemList implements Action {
   readonly type = STORE_ITEM_LIST;
 }
 
+export class ItemActionBorrow implements Action {
+  readonly type = ITEM_ACTION_BORROW;
+
+  constructor(public payload: UserItem) {
+  }
+}
+
+export class ItemActionGiveBackBorrowed implements Action {
+  readonly type = ITEM_ACTION_GIVE_BACK_BORROWED;
+
+  constructor(public payload: UserItem) {
+  }
+}
+
 export type ItemActions =
   | AddUserItem
   | EditUserItem
@@ -51,4 +67,6 @@ export type ItemActions =
   | StoreItemList
   | FetchUserItemList
   | SetUserItemList
+  | ItemActionBorrow
+  | ItemActionGiveBackBorrowed
   ;

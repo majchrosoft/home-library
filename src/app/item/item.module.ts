@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemRowComponent } from './item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item-list/item-row/item-row-td-actions/item-row-td-actions.component';
+import { BorrowComponent } from './borrow/borrow.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ItemRowTdActionsComponent } from './item-list/item-row/item-row-td-acti
     ItemListComponent,
     ItemRowComponent,
     ItemRowTdActionsComponent,
+    BorrowComponent,
   ],
   imports: [
     RouterModule,

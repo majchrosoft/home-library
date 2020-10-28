@@ -18,8 +18,6 @@ import { mapToId } from '../../shared/route-params-helpers';
 import { isNull } from 'util';
 import { AddUserItem, EditUserItem } from '../store/item.actions';
 import { userItemOfId } from '../store/reducer-helpers';
-import { Item } from '../item-vo';
-import { ItemState } from '../store/item.reducer';
 import { Subscription } from 'rxjs';
 import { BookcaseState } from '../../bookcase/store/bookcase.reducer';
 import { Bookcase } from '../../bookcase/bookcase.model';
@@ -72,7 +70,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
       )
     } else {
       this.store.dispatch(
-        new AddUserItem(factorizeUserItem(this.form.value))
+        new AddUserItem(factorizeUserItem(this.form.value, null))
       )
     }
   }

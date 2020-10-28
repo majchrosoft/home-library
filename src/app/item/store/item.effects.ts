@@ -6,7 +6,7 @@ import { AppState } from '../../store/app.reducer';
 import {
   ADD_USER_ITEM, DELETE_USER_ITEM,
   EDIT_USER_ITEM,
-  FETCH_USER_ITEM_LIST,
+  FETCH_USER_ITEM_LIST, ITEM_ACTION_BORROW, ITEM_ACTION_GIVE_BACK_BORROWED,
   SetUserItemList
 } from './item.actions';
 import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -63,7 +63,11 @@ export class ItemEffects {
 
   @Effect({ dispatch: false })
   updateItem = this.actions$.pipe(
-    ofType(EDIT_USER_ITEM),
+    ofType(
+      EDIT_USER_ITEM ||
+      ITEM_ACTION_BORROW ||
+      ITEM_ACTION_GIVE_BACK_BORROWED
+    ),
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
