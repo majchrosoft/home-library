@@ -26,7 +26,7 @@ class BorrowFormDefinition implements BorrowFormValues {
 
   constructor(borrow: Borrow) {
     this.isBorrowed = borrow.isBorrowed;
-    this.expectedEndAt = isNull(borrow.expectedEndAt) ? '' : borrow.expectedEndAt.toDateString()
+    this.expectedEndAt = isNull(borrow.expectedEndAt) ? '' : borrow.expectedEndAt + '';
     this.borrowerEmail = nullCoalesce(borrow.borrowerEmail);
     this.borrowerName = nullCoalesce(borrow.borrowerName);
     this.borrowerData = nullCoalesce(borrow.borrowerData);

@@ -1,15 +1,15 @@
 export class Borrow {
   public isBorrowed: boolean;
-  public startAt: Date | null;
-  public expectedEndAt: Date | null;
+  public startAt: number | null;
+  public expectedEndAt: number | null;
   public borrowerEmail: string | null;
   public borrowerName: string | null;
   public borrowerData: string | null;
 
   constructor(
     isBorrowed: boolean,
-    startAt: Date | null,
-    expectedEndAt: Date | null,
+    startAt: number,
+    expectedEndAt: number | null,
     borrowerEmail: string | null,
     borrowerName: string | null,
     borrowerData: string | null,
@@ -53,8 +53,8 @@ export function factorizeIsNotBorrowed() {
 
 export function factorizeIsBorrowed(
   isBorrowed: boolean,
-  startAt: Date | null,
-  expectedEndAt: Date | null,
+  startAt: number | null,
+  expectedEndAt: number | null,
   borrowerEmail: string | null,
   borrowerName: string | null,
   borrowerData: string | null,

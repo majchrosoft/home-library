@@ -21,6 +21,8 @@ import { userItemOfId } from '../store/reducer-helpers';
 import { Subscription } from 'rxjs';
 import { BookcaseState } from '../../bookcase/store/bookcase.reducer';
 import { Bookcase } from '../../bookcase/bookcase.model';
+import { fromIdToUserItemSwitcher } from '../store/helpers/fromIdToUserItemSwitcher';
+import { fromRouteParameterToUserItemSwitcher } from '../store/helpers/fromRouteParameterToUserItemSwitcher';
 
 @Component({
   selector: 'app-item-form',
@@ -105,11 +107,10 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToRouteParameterChanges() {
-    this.route.params
-      .pipe(
-        map(mapToId()),
-        switchMap(this.switchIdToEntity()),
-      ).subscribe(
+    fromRouteParameterToUserItemSwitcher(
+      this.route.params,
+      this.store
+    ).subscribe(
       (item: UserItem) => {
         this.setItem(item);
         this.initForm(item);

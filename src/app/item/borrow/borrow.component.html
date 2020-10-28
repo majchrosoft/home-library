@@ -1,1 +1,7 @@
-<p>borrow works!</p>
+<form [formGroup]="form">
+  <div *ngFor="let controlId of controls;let index=index" class="form-group">
+    <label for="{{controlId}}">{{controlNames[index]}}</label>
+    <input type="text" class="form-control" id="{{controlId}}" placeholder="{{controlPlaceholders[index]}}"
+           formControlName="{{controlId}}">
+  </div>
+</form>

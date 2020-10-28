@@ -4,6 +4,7 @@ import { ItemListComponent } from './item-list/item-list.component';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { ItemResolver } from './item-resolver';
 import { NgModule } from '@angular/core';
+import { BorrowComponent } from './borrow/borrow.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: '', component: ItemListComponent, resolve: [ItemResolver] },
       { path: 'add', component: ItemFormComponent },
       { path: ':id/edit', component: ItemFormComponent },
+      { path: ':id/borrow', component: BorrowComponent },
     ]
   }
 ];
