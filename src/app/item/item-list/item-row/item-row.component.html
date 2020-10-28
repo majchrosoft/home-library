@@ -6,6 +6,8 @@
 <td>{{userItem.item.author}}</td>
 <td>{{userItem.item.type}}</td>
 <td>{{ userItem.item.bookcase ? bookcaseOfId(userItem.item.bookcase).name : '-'}}</td>
+<td>{{ isNotBorrowed ? 'NO' : 'YES'}}</td>
 <td app-item-row-td-actions
     [item]="userItem"
+    [isNotBorrowed]=isNotBorrowed
 ></td>

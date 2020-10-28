@@ -1,6 +1,13 @@
 <a routerLink="/items/{{item.id}}/show" href="#">Show</a>&nbsp; | &nbsp;
 <a routerLink="/items/{{item.id}}/edit" href="#">Edit</a>&nbsp; | &nbsp;
-<a routerLink="/items/{{item.id}}/borrow" href="#">Borrow</a>&nbsp; | &nbsp;
+
+<a *ngIf="isNotBorrowed" routerLink="/items/{{item.id}}/borrow" href="#">Borrow</a>&nbsp; | &nbsp;
+<button
+  *ngIf="!isNotBorrowed"
+  class="btn-info"
+  (click)="giveItemBack()"
+>Give back
+</button>
 <button
   class="btn-danger"
   (click)="remove()"

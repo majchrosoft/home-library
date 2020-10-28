@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserItem } from '../../../user-item.model';
-import { DeleteItem, FETCH_USER_ITEM_LIST } from '../../../store/item.actions';
+import { DeleteItem, FETCH_USER_ITEM_LIST, ItemActionGiveBackBorrowed } from '../../../store/item.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/app.reducer';
+import { factorizeIsNotBorrowed } from '../../../borrow-vo';
 
 @Component({
   selector: '[app-item-row-td-actions]',
@@ -12,6 +13,7 @@ import { AppState } from '../../../../store/app.reducer';
 export class ItemRowTdActionsComponent implements OnInit {
 
   @Input('item') item: UserItem;
+  @Input('isNotBorrowed') isNotBorrowed: boolean;
 
   constructor(
     private store: Store<AppState>
@@ -23,6 +25,13 @@ export class ItemRowTdActionsComponent implements OnInit {
 
   remove() {
     this.store.dispatch(new DeleteItem(this.item.id));
+  }
+
+  giveItemBack() {
+    this.store.dispatch(new ItemActionGiveBackBorrowed({
+      ...this.item,
+      borrow: factorizeIsNotBorrowed()
+    }));
   }
 
 }

@@ -2,6 +2,7 @@ import { Borrow, factorizeEmptyBorrowed } from '../borrow-vo';
 import { isNull } from 'util';
 import { nullCoalesce } from '../../../core/helper/string/nullCoalesce';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { isNulll } from '../../../core/helper/isNulll';
 
 
 export function factorizeBorrowFormGroupFromEntity(borrow: Borrow | null): FormGroup {
@@ -23,7 +24,7 @@ class BorrowFormDefinition implements BorrowFormValues {
   public borrowerData: string;
 
   constructor(borrow: Borrow) {
-    this.expectedEndAt = isNull(borrow.expectedEndAt) ? +Date.now() : borrow.expectedEndAt;
+    this.expectedEndAt = isNulll(borrow.expectedEndAt) ? +Date.now() : borrow.expectedEndAt;
     this.borrowerEmail = nullCoalesce(borrow.borrowerEmail);
     this.borrowerName = nullCoalesce(borrow.borrowerName);
     this.borrowerData = nullCoalesce(borrow.borrowerData);
