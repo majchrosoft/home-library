@@ -1,4 +1,4 @@
-import * as uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
 
 export function generateIdentifier(idArg: string = null): string {
