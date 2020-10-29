@@ -4,15 +4,15 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: 'items',
-    loadChildren: './item/item.module#ItemModule'
+    loadChildren: () => import('./item/item.module').then(m => m.ItemModule)
   },
   {
     path: 'bookcases',
-    loadChildren: './bookcase/bookcase.module#BookcaseModule'
+    loadChildren: () => import('./bookcase/bookcase.module').then(m => m.BookcaseModule)
   },
   {
     path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   }
 ];
 
