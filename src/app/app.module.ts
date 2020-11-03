@@ -19,6 +19,7 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { BookcaseComponent } from './bookcase/bookcase.component';
 import { BookcaseEffects } from './bookcase/store/bookcase.effects';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BookcaseEffects } from './bookcase/store/bookcase.effects';
     BookcaseComponent,
   ],
   imports: [
+    ComponentsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
