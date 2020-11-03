@@ -21,7 +21,6 @@ import { ofProperty } from '../../../core/helper/array/ofProperty';
 @Injectable()
 export class ItemEffects {
 
-  // @todo remove this stupid anti-pattern asap to get knowledge how to properly operate with streams
   private storedUserItem: UserItem | null = null;
 
   constructor(
@@ -70,7 +69,6 @@ export class ItemEffects {
     withLatestFrom(this.store.select('item')),
     switchMap(
       ([actionData, itemState]) => {
-        console.log('effect update works');
         return this.httpUserItemServiceRepository.update(payloadFromActionData(actionData));
       }
     ),
