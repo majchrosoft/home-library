@@ -10,7 +10,7 @@ import { FetchUserItemList, SET_USER_ITEM_LIST } from './store/item.actions';
 import { AppState } from '../store/app.reducer';
 import { Bookcase } from '../bookcase/bookcase.model';
 import { BookcaseState } from '../bookcase/store/bookcase.reducer';
-import { BookcaseActionFetchList } from '../bookcase/store/bookcase.actions';
+import { BOOKCASE_SET_LIST, BookcaseActionFetchList } from '../bookcase/store/bookcase.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -31,16 +31,24 @@ export class ItemResolver implements Resolve<UserItem[]> {
     Promise<UserItem[]> |
     UserItem[] {
 
+
     return this.store.select('bookcase').pipe(
       take(1),
       map((bookcaseState: BookcaseState) => {
         return bookcaseState.bookcaseList;
       }),
       switchMap((bookcases: Bookcase[]) => {
+        //@todo check what will happen if there will be 0 bookcases
         if (bookcases.length === 0) {
           this.store.dispatch(new BookcaseActionFetchList());
+          return this.actions$.pipe(
+            ofType(BOOKCASE_SET_LIST),
+          );
+        } else {
+          return of(bookcases);
         }
-
+      }),
+      switchMap((value: Bookcase[], index: number) => {
         return this.store.select('item').pipe(
           take(1),
           map((itemState: ItemState) => {
@@ -59,9 +67,8 @@ export class ItemResolver implements Resolve<UserItem[]> {
             }
           })
         )
-
       })
-    )
+    );
 
 
   }
