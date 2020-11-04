@@ -10,6 +10,13 @@ import { ItemRowComponent } from './item-list/item-row/item-row.component';
 import { ItemRowTdActionsComponent } from './item-list/item-row/item-row-td-actions/item-row-td-actions.component';
 import { BorrowComponent } from './borrow/borrow.component';
 import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +33,14 @@ import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-
     ItemRoutingModule,
     SharedModule,
     DlDateTimeDateModule,
-    DlDateTimePickerModule
+    DlDateTimePickerModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    BrowserAnimationsModule
   ]
 })
 export class ItemModule {

@@ -20,6 +20,13 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { BookcaseComponent } from './bookcase/bookcase.component';
 import { BookcaseEffects } from './bookcase/store/bookcase.effects';
 import { ComponentsModule } from './components/components.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,6 +44,13 @@ import { ComponentsModule } from './components/components.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     SharedModule,
     EffectsModule.forRoot([BookcaseEffects, ItemEffects, AuthEffects]),
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

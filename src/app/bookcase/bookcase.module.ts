@@ -7,6 +7,13 @@ import { BookcaseRoutingModule } from './bookcase-routing.module';
 import { BookcaseFormComponent } from './bookcase-form/bookcase-form.component';
 import { BookcaseRowComponent } from './bookcase-list/bookcase-row/bookcase-row.component';
 import { BookcaseRowTdActionsComponent } from './bookcase-list/bookcase-row/bookcase-row-td-actions/bookcase-row-td-actions.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +26,14 @@ import { BookcaseRowTdActionsComponent } from './bookcase-list/bookcase-row/book
     RouterModule,
     ReactiveFormsModule,
     BookcaseRoutingModule,
-    SharedModule
+    SharedModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    BrowserAnimationsModule
   ]
 })
 export class BookcaseModule {
