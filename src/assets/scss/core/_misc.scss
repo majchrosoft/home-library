@@ -23,17 +23,17 @@ legend {
 }
 
 a {
-  color: $link-color;
+  color: $link-color !important;
 
   &:hover,
   &:focus {
-    color: darken($link-color, 5%);
+    color: darken($link-color, 5%) !important;
     text-decoration: none;
   }
 
   &.text-info {
     &:hover, &:focus {
-      color: darken($brand-info, 5%);
+      color: darken($brand-info, 5%) !important;
     }
   }
 

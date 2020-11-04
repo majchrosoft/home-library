@@ -3,10 +3,14 @@
 
 /*     brand Colors              */
 
-$brand-primary: $grey-500 !default;
+$brand-primary: $grey-600 !default;
 $brand-info: $grey-200 !default;
 $brand-success: $green-500 !default;
 $brand-warning: $orange-500 !default;
-$brand-danger: $red-500 !default;
+$brand-danger: #c9c7c6 !default;
 $brand-rose: $pink-500 !default;
 $brand-inverse: $black-color !default;
+
+.main-content .text-primary {
+  color: $brand-primary !important;
+}

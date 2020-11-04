@@ -27,6 +27,7 @@ export class AuthGuard implements CanActivate {
     Promise<boolean | UrlTree> |
     boolean |
     UrlTree {
+console.log('wpdasdfsdfdfdfs');
     return this.store.select('auth').pipe(
       take(1),
       map((authState: AuthState) => {
@@ -37,7 +38,7 @@ export class AuthGuard implements CanActivate {
         if (isAuthenticated) {
           return true;
         }
-
+        console.log('wpdasdfsdfdfdfs');
         return this.router.createUrlTree(['/auth']);
 
       })

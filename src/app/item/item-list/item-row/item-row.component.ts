@@ -41,7 +41,6 @@ export class ItemRowComponent implements OnInit, OnDestroy {
 
     this.bookcaseOfId(this.userItem.item.bookcase);
     this.isNotBorrowed = this.userItem === undefined || this.userItem.borrow === undefined || !this.userItem.borrow.isBorrowed;
-    console.log(this.isNotBorrowed);
   }
 
   ngOnDestroy(): void {
