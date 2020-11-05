@@ -77,7 +77,7 @@ const defaultValues: formValues = {
 export function controls(values: formValues) {
   return {
     isbn: new FormControl(values.isbn, Validators.pattern(isbnRegex)),
-    quality: new FormControl(values.quality, [Validators.required, Validators.pattern('^[0-9]*$')]),
+    quality: new FormControl(values.quality, [Validators.required]),
     title: new FormControl(values.title, Validators.required),
     description: new FormControl(values.description, Validators.required),
     author: new FormControl(values.author, Validators.required),

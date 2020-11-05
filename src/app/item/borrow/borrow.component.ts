@@ -36,10 +36,6 @@ export class BorrowComponent implements OnInit, OnDestroy {
     'borrowerData',
   ];
 
-  public controlPlaceholders: string[] = this.controlNames.map((name) => {
-    return 'Enter ' + name;
-  });
-
   form: FormGroup;
   userItem: UserItem;
 

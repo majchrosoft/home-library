@@ -61,6 +61,7 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log(this.form);
     if (!this.form.valid) {
       return;
     }

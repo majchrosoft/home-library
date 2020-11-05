@@ -1,16 +1,34 @@
-<table datatable class="row-border hover table">
-  <thead>
-  <tr>
-    <th scope="col">Id</th>
-    <th scope="col">Name</th>
-    <th scope="col">Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr app-bookcase-row
-      *ngFor="let bookcase of bookcases; let i = index"
-      [bookcase]="bookcase"
-      [index]="i"
-  ></tr>
-  </tbody>
-</table>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Bookcases</h4>
+            <p class="card-category"> Manage with bookcases at Your home</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table datatable class="row-border hover table">
+                <thead class="text-primary">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr app-bookcase-row
+                    *ngFor="let bookcase of bookcases; let i = index"
+                    [bookcase]="bookcase"
+                    [index]="i"
+                ></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

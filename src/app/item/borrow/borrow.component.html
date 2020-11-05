@@ -1,30 +1,55 @@
-<form [formGroup]="form">
-  <div class="form-group">
-    <label for="expectedEndAt">Expected return day</label>
-<!--        <input type="text" class="form-control" id="expectedEndAt" formControlName="expectedEndAt" name="expectedEndAt">-->
-    <dl-date-time-picker
-      startView="day"
-      maxView="year"
-      minView="day"
-      formControlName="expectedEndAt"
-    >
-    </dl-date-time-picker>
-  </div>
-  <div *ngFor="let controlId of controls;let index=index" class="form-group">
-    <label for="{{controlId}}">{{controlNames[index]}}</label>
-    <input type="text" class="form-control" id="{{controlId}}" placeholder="{{controlPlaceholders[index]}}"
-           formControlName="{{controlId}}">
-  </div>
-  <hr/>
-  <div class="form-group">
-    <div class="col-xs-12">
-      <button
-        type="button"
-        class="btn btn-success"
-        (click)="onSubmit()"
-      >
-        Borrow
-      </button>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Borrow Your collection item</h4>
+            <p class="card-category">Specify information about borrowing an item</p>
+          </div>
+          <div class="card-body">
+            <form
+              [formGroup]="form"
+            >
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Expected return day</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      formControlName="expectedEndAt"
+                    >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+
+                  <mat-form-field *ngFor="let controlId of controls;let index = index" class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="{{controlNames[index]}}"
+                      type="text"
+                      class="form-control"
+                      id="{{controlId}}"
+                      formControlName="{{controlId}}"
+                    >
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-success pull-right"
+                (click)="onSubmit()"
+              >Borrow an Item
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</form>
+</div>
