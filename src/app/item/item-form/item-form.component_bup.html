@@ -1,0 +1,90 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label for="isbn">ISBN</label>
+    <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
+           formControlName="isbn">
+
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'isbn')"
+    ></app-form-message-error>
+
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" placeholder="Enter title"
+           formControlName="title"
+    >
+
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'title')"
+    ></app-form-message-error>
+  </div>
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input
+      type="text" class="form-control" id="author" placeholder="Enter author"
+      formControlName="author"
+    >
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'author')"
+    ></app-form-message-error>
+
+  </div>
+  <div class="form-group">
+    <label for="type">Type</label>
+    <select class="form-control" id="type"
+            formControlName="type">
+      <option
+        *ngFor="let itemType of itemTypes"
+        [value]="itemType"
+      >{{itemType}}
+      </option>
+    </select>
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'type')"
+    ></app-form-message-error>
+  </div>
+  <div class="form-group">
+    <label for="quality">Quality</label>
+    <select class="form-control" id="quality"
+            formControlName="quality"
+    >
+      <option
+        *ngFor="let itemQualityScaleItem of itemQualityScaleList"
+        [value]="itemQualityScaleItem"
+      >{{itemQualityScaleItem}}
+      </option>
+    </select>
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'quality')"
+    ></app-form-message-error>
+  </div>
+  <div class="form-group">
+    <label for="bookcase">Bookcase</label>
+    <select class="form-control" id="bookcase"
+            formControlName="bookcase"
+    >
+      <option
+        *ngFor="let bookcase of bookcases;"
+        [value]="bookcase.id"
+      >{{bookcase.name}}
+      </option>
+    </select>
+    <app-form-message-error
+      [errors]="formControlErrorMessages( 'bookcase')"
+    ></app-form-message-error>
+  </div>
+  <hr/>
+  <div class="form-group">
+    <div class="col-xs-12">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="onSubmit()"
+        [innerHTML]="submitButtonName()"
+      >
+      </button>
+    </div>
+  </div>
+
+</form>

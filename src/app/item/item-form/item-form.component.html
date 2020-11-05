@@ -1,87 +1,129 @@
-<form [formGroup]="form">
-  <div class="form-group">
-    <label for="isbn">ISBN</label>
-    <input type="text" class="form-control" id="isbn" placeholder="Enter Isbn"
-           formControlName="isbn">
-
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'isbn')"
-    ></app-form-message-error>
-
-  </div>
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter title"
-           formControlName="title">
-
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'title')"
-    ></app-form-message-error>
-  </div>
-  <div class="form-group">
-    <label for="author">Author</label>
-    <input type="text" class="form-control" id="author" placeholder="Enter author"
-           formControlName="author">
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'author')"
-    ></app-form-message-error>
-
-  </div>
-  <div class="form-group">
-    <label for="type">Type</label>
-    <select class="form-control" id="type"
-            formControlName="type">
-      <option
-        *ngFor="let itemType of itemTypes"
-        [value]="itemType"
-      >{{itemType}}
-      </option>
-    </select>
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'type')"
-    ></app-form-message-error>
-  </div>
-  <div class="form-group">
-    <label for="quality">Quality</label>
-    <select class="form-control" id="quality"
-            formControlName="quality"
-    >
-      <option
-        *ngFor="let itemQualityScaleItem of itemQualityScaleList"
-        [value]="itemQualityScaleItem"
-      >{{itemQualityScaleItem}}
-      </option>
-    </select>
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'quality')"
-    ></app-form-message-error>
-  </div>
-  <div class="form-group">
-    <label for="bookcase">Bookcase</label>
-    <select class="form-control" id="bookcase"
-            formControlName="bookcase"
-    >
-      <option
-        *ngFor="let bookcase of bookcases;"
-        [value]="bookcase.id"
-      >{{bookcase.name}}
-      </option>
-    </select>
-    <app-form-message-error
-      [errors]="formControlErrorMessages( 'bookcase')"
-    ></app-form-message-error>
-  </div>
-  <hr/>
-  <div class="form-group">
-    <div class="col-xs-12">
-      <button
-        type="button"
-        class="btn btn-success"
-        (click)="onSubmit()"
-        [innerHTML]="submitButtonName()"
-      >
-      </button>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add/Edit Catalog Item</h4>
+            <p class="card-category">Specify new item in Your collection here</p>
+          </div>
+          <div class="card-body">
+            <form
+              [formGroup]="form"
+            >
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="ISBN"
+                      type="text"
+                      class="form-control"
+                      id="isbn"
+                      formControlName="isbn"
+                    >
+                    <mat-error *ngIf="form.controls.isbn.invalid">{{formControlErrorMessages('isbn')}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Title"
+                      type="text"
+                      class="form-control"
+                      id="title"
+                      formControlName="title"
+                    >
+                    <mat-error *ngIf="form.controls.title.invalid">{{formControlErrorMessages('title')}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input
+                      matInput
+                      placeholder="Author"
+                      type="text"
+                      class="form-control"
+                      id="author"
+                      formControlName="author"
+                    >
+                    <mat-error *ngIf="form.controls.author.invalid">{{formControlErrorMessages('author')}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Type</mat-label>
+                    <mat-select
+                      class="form-control"
+                      id="type"
+                      formControlName="type"
+                    >
+                      <mat-option
+                        *ngFor="let itemType of itemTypes"
+                        [value]="itemType"
+                      >
+                        {{itemType}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.type.invalid">{{formControlErrorMessages('type')}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Quality</mat-label>
+                    <mat-select
+                      class="form-control"
+                      id="quality"
+                      formControlName="quality"
+                    >
+                      <mat-option
+                        *ngFor="let itemQualityScaleItem of itemQualityScaleList"
+                        [value]="itemQualityScaleItem"
+                      >
+                        {{itemQualityScaleItem}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls.quality.invalid">{{formControlErrorMessages('quality')}}</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Bookcase</mat-label>
+                    <mat-select
+                      class="form-control"
+                      id="bookcase"
+                      formControlName="bookcase"
+                    >
+                      <mat-option
+                        *ngFor="let bookcase of bookcases"
+                        [value]="bookcase.id"
+                      >
+                        {{bookcase.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="form.controls.bookcase.invalid">{{formControlErrorMessages('bookcase')}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-success pull-right"
+                (click)="onSubmit()"
+                [innerHTML]="submitButtonName()"
+              >Update Profile
+              </button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-</form>
+</div>

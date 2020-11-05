@@ -61,6 +61,10 @@ export class ItemFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (!this.form.valid) {
+      return;
+    }
+
     if (this.isEdit()) {
       this.store.dispatch(
         new EditUserItem({
