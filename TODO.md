@@ -1,4 +1,9 @@
-  - implement item /show
+  - implement item show
+  - implement buttons remove
+  - bugfixes
+  - translations
+  - logout + dropdown
+  - profile form - manage with password
 
 - eliminate race condition bug (two streams combineLatest) in catalog
 - implement any template
