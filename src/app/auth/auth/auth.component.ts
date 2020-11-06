@@ -6,6 +6,7 @@ import { AlertComponent } from '../../shared/alert/alert.component';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 import { NgForm } from '@angular/forms';
 import { ClearError, LOGIN_START, LoginStart, SIGNUP_START, SignupStart } from '../store/auth-actions';
+import { AuthResetPasswordEmailResponseBody, AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -24,7 +25,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private authService: AuthService
   ) {
 
   }
@@ -41,6 +43,18 @@ export class AuthComponent implements OnInit {
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
+  }
+
+  resetPassword(form: NgForm) {
+    if (!form.controls.email.valid) {
+      return;
+    }
+
+    this.authService
+      .sendResetPasswordForm(form.controls.email.value)
+      .subscribe((response: AuthResetPasswordEmailResponseBody) => {
+        alert('reset email password sent at:' + response.email);
+      });
   }
 
   onSubmit(form: NgForm) {

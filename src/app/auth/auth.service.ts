@@ -5,11 +5,21 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
 import { Logout } from './store/auth-actions';
+import { HttpClient } from '@angular/common/http';
 
 export interface AuthRequestBody {
   email: string, //	The email for the user to create.
   password: string, //	The password for the user to create.
   returnSecureToken: boolean, //	Whether or not to return an ID and refresh token. Should always be true.
+}
+
+export interface AuthResetPasswordEmailRequestBody {
+  email: string,
+  requestType: string,
+}
+
+export interface AuthResetPasswordEmailResponseBody {
+  email: string,
 }
 
 export interface AuthSignUpResponseData {
@@ -55,6 +65,22 @@ export class AuthSignInRequestData extends AbstractRequestData implements Reques
 
 }
 
+export class AuthResetPasswordEmailRequestData extends AbstractRequestData implements RequestData {
+  metaUrl: string = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=[API_KEY]';
+  body: AuthResetPasswordEmailRequestBody;
+  protected paramNames: string[] = ['[API_KEY]'];
+  protected params: string[] = [environment.firebaseApiKey];
+
+  constructor(email: string) {
+    super();
+    this.body = {
+      requestType: 'PASSWORD_RESET',
+      email: email
+    };
+  }
+
+}
+
 const UserLocalStorageDataKey = 'userData';
 
 @Injectable({ providedIn: 'root' })
@@ -62,7 +88,8 @@ export class AuthService {
   private tokenExpirationTimer: any;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private http: HttpClient
   ) {
   }
 
@@ -77,6 +104,15 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
+  }
+
+  sendResetPasswordForm(email: string) {
+    let authResetPasswordRequestData = new AuthResetPasswordEmailRequestData(
+      email);
+    return this.http.post<AuthResetPasswordEmailResponseBody>(
+      authResetPasswordRequestData.url,
+      authResetPasswordRequestData.body
+    );
   }
 
 }

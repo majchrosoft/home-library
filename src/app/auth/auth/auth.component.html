@@ -64,6 +64,14 @@
               >
                 Switch to {{ isLoginMode ? 'Sign Up' : 'Login' }}
               </button>
+              <button
+                mat-raised-button
+                class="btn btn-primary"
+                (click)="resetPassword(authForm)"
+                type="button"
+              >
+                Reset password
+              </button>
 
               <div class="clearfix"></div>
             </form>
