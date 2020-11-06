@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSelectModule,
     MatTooltipModule,
     MatDatepickerModule,        // <----- import(must)
-    MatNativeDateModule,        // <----- import for date formating(optional)
+    MatNativeDateModule,
+    MatIconModule// <----- import for date formating(optional)
   ]
 })
 export class ItemModule {

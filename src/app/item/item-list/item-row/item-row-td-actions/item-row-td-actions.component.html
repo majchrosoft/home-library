@@ -1,16 +1,54 @@
-<a routerLink="/items/{{item.id}}/show" href="#">Show</a>&nbsp; | &nbsp;
-<a routerLink="/items/{{item.id}}/edit" href="#">Edit</a>&nbsp; | &nbsp;
+<button
+  routerLink="/items/{{item.id}}/show"
+  mat-raised-button
+  type="button"
+  matTooltip="Details"
+  [matTooltipPosition]="'above'"
+  class="btn btn-primary btn-link btn-sm btn-just-icon"
+>
+  <i class="material-icons">info</i>
+</button>
+<button
+  routerLink="/items/{{item.id}}/edit"
+  mat-raised-button
+  type="button"
+  matTooltip="Edit"
+  [matTooltipPosition]="'above'"
+  class="btn btn-primary btn-link btn-sm btn-just-icon"
+>
+  <i class="material-icons">edit</i>
+</button>
 
-<a *ngIf="isNotBorrowed" routerLink="/items/{{item.id}}/borrow" href="#">Borrow</a>&nbsp; | &nbsp;
+<button
+  *ngIf="isNotBorrowed"
+  routerLink="/items/{{item.id}}/borrow"
+  mat-raised-button
+  type="button"
+  matTooltip="Borrow"
+  [matTooltipPosition]="'above'"
+  class="btn btn-primary btn-link btn-sm btn-just-icon"
+>
+  <i class="material-icons">redo</i>
+</button>
+
 <button
   *ngIf="!isNotBorrowed"
-  class="btn-info"
   (click)="giveItemBack()"
->Give back
+  mat-raised-button
+  type="button"
+  matTooltip="Give back"
+  [matTooltipPosition]="'above'"
+  class="btn btn-primary btn-link btn-sm btn-just-icon"
+>
+  <i class="material-icons">undo</i>
 </button>
 <button
-  class="btn-danger"
+  mat-raised-button
+  type="button"
+  matTooltip="Remove"
+  [matTooltipPosition]="'above'"
+  class="btn btn-danger btn-link btn-sm btn-just-icon"
   (click)="remove()"
->Remove
+>
+  <i class="material-icons">remove</i>
 </button>
-

@@ -1,8 +1,20 @@
-<a routerLink="/bookcases/{{bookcase.id}}/show" href="#">Show</a>&nbsp; | &nbsp;
-<a routerLink="/bookcases/{{bookcase.id}}/edit" href="#">Edit</a>&nbsp; | &nbsp;
 <button
-  class="btn-danger"
-  (click)="remove()"
->Remove
+  routerLink="/bookcases/{{bookcase.id}}/edit"
+  mat-raised-button
+  type="button"
+  matTooltip="Edit"
+  [matTooltipPosition]="'above'"
+  class="btn btn-primary btn-link btn-sm btn-just-icon"
+>
+  <i class="material-icons">edit</i>
 </button>
-
+<button
+  mat-raised-button
+  type="button"
+  matTooltip="Remove"
+  [matTooltipPosition]="'above'"
+  class="btn btn-danger btn-link btn-sm btn-just-icon"
+  (click)="remove()"
+>
+  <i class="material-icons">remove</i>
+</button>

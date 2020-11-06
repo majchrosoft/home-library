@@ -2,6 +2,9 @@ import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { Logout } from '../../auth/store/auth-actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.reducer';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +20,12 @@ export class NavbarComponent implements OnInit {
 
   @Input('isAuthenticated') isAuthenticated;
 
-  constructor(location: Location, private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,
+    private element: ElementRef,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     this.location = location;
     this.sidebarVisible = false;
   }
@@ -47,6 +55,10 @@ export class NavbarComponent implements OnInit {
 
     this.sidebarVisible = true;
   };
+
+  logout() {
+    this.store.dispatch(new Logout());
+  }
 
   sidebarClose() {
     // const body = document.getElementsByTagName('body')[0];

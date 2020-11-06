@@ -55,6 +55,10 @@ export class BookcaseFormComponent implements OnInit {
     return !isNull(this.bookcase);
   }
 
+  title(): string {
+    return this.isEdit() ? 'Edit' : 'Add';
+  }
+
   id(): string | null {
     return !isNull(this.bookcase) ? this.bookcase.id : null;
   }

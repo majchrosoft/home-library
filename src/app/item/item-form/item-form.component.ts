@@ -42,6 +42,10 @@ export class ItemFormComponent implements OnInit, OnDestroy {
     return !isNull(this.item);
   }
 
+  title(): string {
+    return this.isEdit() ? 'Edit' : 'Add';
+  }
+
   id(): string | null {
     return !isNull(this.item) ? this.item.id : null;
   }
