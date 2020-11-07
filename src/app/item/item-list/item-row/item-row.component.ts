@@ -47,7 +47,12 @@ export class ItemRowComponent implements OnInit, OnDestroy {
     this.bookcasesSubscription.unsubscribe()
   }
 
-  bookcaseOfId(bookcaseId: string): Bookcase {
+  bookcaseOfId(bookcaseId: string): Bookcase | null {
+    if (bookcaseId == '') {
+      return null;
+    }
+    console.log('bookcaseId:', bookcaseId)
+    console.log(this.bookcases)
     return ofProperty<Bookcase, string>(this.bookcases, 'id', bookcaseId);
   }
 

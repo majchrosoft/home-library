@@ -43,7 +43,7 @@ export class AuthSignUpRequestData extends AbstractRequestData implements Reques
   metaUrl: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
   body: AuthRequestBody;
   protected paramNames: string[] = ['[API_KEY]'];
-  protected params: string[] = [environment.firebaseApiKey];
+  protected params: string[] = [environment['firebaseApiKey']];
 
   constructor(body: AuthRequestBody) {
     super();
@@ -56,7 +56,7 @@ export class AuthSignInRequestData extends AbstractRequestData implements Reques
   metaUrl: string = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]';
   body: AuthRequestBody;
   protected paramNames: string[] = ['[API_KEY]'];
-  protected params: string[] = [environment.firebaseApiKey];
+  protected params: string[] = [environment['firebaseApiKey']];
 
   constructor(body: AuthRequestBody) {
     super();
@@ -69,7 +69,7 @@ export class AuthResetPasswordEmailRequestData extends AbstractRequestData imple
   metaUrl: string = 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=[API_KEY]';
   body: AuthResetPasswordEmailRequestBody;
   protected paramNames: string[] = ['[API_KEY]'];
-  protected params: string[] = [environment.firebaseApiKey];
+  protected params: string[] = [environment['firebaseApiKey']];
 
   constructor(email: string) {
     super();

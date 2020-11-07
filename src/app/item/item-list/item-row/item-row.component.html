@@ -4,7 +4,7 @@
 <td>{{userItem.item.description}}</td>
 <td>{{userItem.item.author}}</td>
 <td>{{userItem.item.type}}</td>
-<td>{{ userItem.item.bookcase ? bookcaseOfId(userItem.item.bookcase).name : '-'}}</td>
+<td>{{ userItem.item.bookcase && userItem.item.bookcase != '' && bookcaseOfId(userItem.item.bookcase)?.name}}</td>
 <td>{{ isNotBorrowed ? 'NO' : 'YES'}}</td>
 <td app-item-row-td-actions
     [item]="userItem"
