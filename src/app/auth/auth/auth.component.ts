@@ -53,7 +53,7 @@ export class AuthComponent implements OnInit {
     this.authService
       .sendResetPasswordForm(form.controls.email.value)
       .subscribe((response: AuthResetPasswordEmailResponseBody) => {
-        alert('reset email password sent at:' + response.email);
+        alert('reset password email sent at:' + response.email);
       });
   }
 
